@@ -1,5 +1,6 @@
 package com.gabia.voting.item.entity;
 
+import com.gabia.voting.global.entity.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity(name = "item")
-public class Item {
+public class Item extends BaseTimeEntity {
 
     @Id
     @Column(name = "item_pk")
@@ -22,9 +23,6 @@ public class Item {
 
     @Column(name = "item_content", nullable = false)
     private String itemContent;
-
-    @Column(name = "created_time", nullable = false)
-    private LocalDateTime createdTime;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "item")
     private Vote vote;
