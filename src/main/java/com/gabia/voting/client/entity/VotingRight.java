@@ -17,7 +17,16 @@ public class VotingRight {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long votingRightPk;
 
+    @OneToOne
+    @JoinColumn(name = "clientPk")
+    private Client client;
+
     @Column(name = "count", nullable = false)
     private Integer count;
+
+    public VotingRight(Client client, int count){
+        this.client = client;
+        this.count = count;
+    }
 
 }

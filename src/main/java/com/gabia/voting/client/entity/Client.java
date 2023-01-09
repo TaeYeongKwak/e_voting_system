@@ -1,5 +1,6 @@
 package com.gabia.voting.client.entity;
 
+import com.gabia.voting.client.type.ClientType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,6 +31,10 @@ public class Client {
     @Column(name = "client_name", length = 30, nullable = false)
     private String clientName;
 
+    @Column(name = "client_type")
+    @Enumerated(EnumType.ORDINAL)
+    private ClientType clientType;
+
     @Column(name = "created_time", nullable = false)
     private LocalDateTime createdTime;
 
@@ -40,7 +45,10 @@ public class Client {
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
     private Set<Role> clientRole;
 
-    @OneToOne
-    @JoinColumn(name = "votingRightPk")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "client")
     private VotingRight votingRight;
+
+    public void encodePassword(String encodePassword){
+        this.password = encodePassword;
+    }
 }
