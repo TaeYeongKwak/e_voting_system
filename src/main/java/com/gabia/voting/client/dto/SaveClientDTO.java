@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -37,7 +36,6 @@ public class SaveClientDTO {
                 .clientName(clientName)
                 .clientType(clientType)
                 .clientRole(roles)
-                .createdTime(LocalDateTime.now())
                 .build();
     }
 

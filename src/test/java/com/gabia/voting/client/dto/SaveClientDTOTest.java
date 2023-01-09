@@ -18,7 +18,7 @@ public class SaveClientDTOTest {
 
         SaveClientDTO saveClientDTO = SaveClientDTO.builder()
                 .clientId("testId")
-                .password("testPassowrd")
+                .password("testPassword")
                 .clientName("testClientName")
                 .clientType(ClientType.SHAREHOLDER)
                 .votingRightCount(10)

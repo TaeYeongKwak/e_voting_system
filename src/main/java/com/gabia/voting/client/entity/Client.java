@@ -1,6 +1,7 @@
 package com.gabia.voting.client.entity;
 
 import com.gabia.voting.client.type.ClientType;
+import com.gabia.voting.global.entity.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity(name = "client")
-public class Client {
+public class Client extends BaseTimeEntity {
 
     @Id
     @Column(name = "client_pk")
@@ -34,9 +35,6 @@ public class Client {
     @Column(name = "client_type")
     @Enumerated(EnumType.ORDINAL)
     private ClientType clientType;
-
-    @Column(name = "created_time", nullable = false)
-    private LocalDateTime createdTime;
 
     @ManyToMany
     @JoinTable(

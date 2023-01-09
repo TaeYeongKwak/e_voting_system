@@ -25,7 +25,6 @@ public class ClientRepositoryTest {
                 .clientId("testId")
                 .password("testPassword")
                 .clientName("testUser")
-                .createdTime(LocalDateTime.now())
                 .build();
     }
 

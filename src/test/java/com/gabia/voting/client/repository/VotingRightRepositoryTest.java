@@ -32,7 +32,6 @@ public class VotingRightRepositoryTest {
                 .password("testPassword")
                 .clientName("testUser")
                 .clientType(ClientType.SHAREHOLDER)
-                .createdTime(LocalDateTime.now())
                 .build();
     }
 

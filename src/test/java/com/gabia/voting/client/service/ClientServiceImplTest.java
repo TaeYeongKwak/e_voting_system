@@ -56,7 +56,6 @@ public class ClientServiceImplTest {
                 .password(saveClientDTO.getPassword())
                 .clientName(saveClientDTO.getClientName())
                 .clientType(ClientType.SHAREHOLDER)
-                .createdTime(LocalDateTime.now())
                 .build();
 
         votingRight = new VotingRight(1L, client, 10);
