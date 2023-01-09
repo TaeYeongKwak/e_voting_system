@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
@@ -33,7 +32,7 @@ public class Client extends BaseTimeEntity {
     private String clientName;
 
     @Column(name = "client_type")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private ClientType clientType;
 
     @ManyToMany

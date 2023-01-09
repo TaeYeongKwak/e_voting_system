@@ -46,7 +46,7 @@ public class ClientServiceImplTest {
                 .clientId("testId")
                 .password("testPassowrd")
                 .clientName("testClientName")
-                .clientType(ClientType.SHAREHOLDER)
+                .clientType(ClientType.ROLE_SHAREHOLDER)
                 .votingRightCount(10)
                 .build();
 
@@ -55,7 +55,7 @@ public class ClientServiceImplTest {
                 .clientId(saveClientDTO.getClientId())
                 .password(saveClientDTO.getPassword())
                 .clientName(saveClientDTO.getClientName())
-                .clientType(ClientType.SHAREHOLDER)
+                .clientType(saveClientDTO.getClientType())
                 .build();
 
         votingRight = new VotingRight(1L, client, 10);

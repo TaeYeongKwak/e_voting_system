@@ -32,7 +32,7 @@ public class ClientServiceImpl implements ClientService{
         saveClient.encodePassword(passwordEncoder.encode(saveClient.getPassword()));
         saveClient = clientRepository.save(saveClient);
 
-        if (saveClientDTO.getClientType() == ClientType.SHAREHOLDER)
+        if (saveClientDTO.getClientType() == ClientType.ROLE_SHAREHOLDER)
             votingRightRepository.save(new VotingRight(saveClient, saveClientDTO.getVotingRightCount()));
 
         return saveClient.getClientPk() != null;

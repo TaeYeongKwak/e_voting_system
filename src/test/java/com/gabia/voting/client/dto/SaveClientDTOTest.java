@@ -13,14 +13,14 @@ public class SaveClientDTOTest {
     public void toEntity_test(){
         // given
         String defaultRoleName = "ROLE_USER";
-        String typeRoleName = ClientType.SHAREHOLDER.getAuthorityName();
-        String[] roleNames = {defaultRoleName, typeRoleName};
+        ClientType typeRoleName = ClientType.ROLE_SHAREHOLDER;
+        String[] roleNames = {defaultRoleName, typeRoleName.toString()};
 
         SaveClientDTO saveClientDTO = SaveClientDTO.builder()
                 .clientId("testId")
                 .password("testPassword")
                 .clientName("testClientName")
-                .clientType(ClientType.SHAREHOLDER)
+                .clientType(ClientType.ROLE_SHAREHOLDER)
                 .votingRightCount(10)
                 .build();
 
