@@ -23,7 +23,6 @@ public class ItemRepositoryTest {
         item = Item.builder()
                 .itemTitle("testItem")
                 .itemContent("testContent")
-                .createdTime(LocalDateTime.now())
                 .build();
     }
 
