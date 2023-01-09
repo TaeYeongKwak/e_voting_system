@@ -1,12 +1,13 @@
 package com.gabia.voting.client.entity;
 
+import com.gabia.voting.client.type.ClientType;
+import com.gabia.voting.global.entity.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
@@ -14,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity(name = "client")
-public class Client {
+public class Client extends BaseTimeEntity {
 
     @Id
     @Column(name = "client_pk")
@@ -30,8 +31,9 @@ public class Client {
     @Column(name = "client_name", length = 30, nullable = false)
     private String clientName;
 
-    @Column(name = "created_time", nullable = false)
-    private LocalDateTime createdTime;
+    @Column(name = "client_type")
+    @Enumerated(EnumType.STRING)
+    private ClientType clientType;
 
     @ManyToMany
     @JoinTable(
@@ -39,4 +41,11 @@ public class Client {
             joinColumns = {@JoinColumn(name = "client_pk", referencedColumnName = "client_pk")},
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
     private Set<Role> clientRole;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "client")
+    private VotingRight votingRight;
+
+    public void encodePassword(String encodePassword){
+        this.password = encodePassword;
+    }
 }
