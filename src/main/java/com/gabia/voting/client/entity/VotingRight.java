@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
@@ -15,8 +13,9 @@ import javax.persistence.Id;
 public class VotingRight {
 
     @Id
-    @Column(name = "client_pk")
-    private Long clientPk;
+    @Column(name = "voting_right_pk")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long votingRightPk;
 
     @Column(name = "count", nullable = false)
     private Integer count;

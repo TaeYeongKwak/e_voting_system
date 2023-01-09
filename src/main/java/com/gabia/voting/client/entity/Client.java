@@ -39,4 +39,8 @@ public class Client {
             joinColumns = {@JoinColumn(name = "client_pk", referencedColumnName = "client_pk")},
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
     private Set<Role> clientRole;
+
+    @OneToOne
+    @JoinColumn(name = "votingRightPk")
+    private VotingRight votingRight;
 }
