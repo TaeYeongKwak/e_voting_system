@@ -16,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -114,7 +113,10 @@ public class ItemServiceImplTest {
                     .itemPk(i)
                     .itemTitle(String.valueOf(i))
                     .itemContent(String.valueOf(i))
-                    .vote(Vote.builder().startTime(LocalDateTime.now().minusDays(1)).build())
+                    .vote(Vote.builder()
+                            .startTime(LocalDateTime.now().minusDays(1))
+                            .endTime(LocalDateTime.now().plusDays(1))
+                            .build())
                     .build());
         }
 

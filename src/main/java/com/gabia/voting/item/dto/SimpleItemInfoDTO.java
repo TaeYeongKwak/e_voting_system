@@ -1,6 +1,7 @@
 package com.gabia.voting.item.dto;
 
 import com.gabia.voting.item.entity.Item;
+import com.gabia.voting.item.entity.Vote;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -18,7 +19,8 @@ public class SimpleItemInfoDTO {
     private LocalDateTime createdTime;
 
     public static SimpleItemInfoDTO of(Item item){
-        boolean canVoting = (item.getVote() != null && item.getVote().getStartTime().isBefore(LocalDateTime.now()));
+        Vote vote = item.getVote();
+        boolean canVoting = (vote != null && vote.isActivation());
 
         return SimpleItemInfoDTO.builder()
                 .itemPk(item.getItemPk())
