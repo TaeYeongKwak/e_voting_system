@@ -29,7 +29,8 @@ public class Vote {
     private LocalDateTime endTime;
 
     public boolean isActivation(){
-        return this.getStartTime().isBefore(LocalDateTime.now()) && this.getEndTime().isAfter(LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+        return this.getStartTime().isBefore(now) && this.getEndTime().isAfter(now);
     }
 
 }

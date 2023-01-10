@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ItemExceptionAdvice {
 
     @ExceptionHandler(ItemNotFoundException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public APIResponseDTO itemNotFoundException(){
         ItemExceptionInfo exceptionInfo = ItemExceptionInfo.ITEM_NOT_FOUND;
         return APIResponseDTO.fail(exceptionInfo.getCode(), exceptionInfo.getMessage());
