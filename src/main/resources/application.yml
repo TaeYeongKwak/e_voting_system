@@ -1,3 +1,7 @@
 spring:
   profiles:
     active: test
+
+jwt:
+  secret-key: FD9356676B3BD25891BF3DB4799CEFF3B8587313922D35C7FCDA2E64AE
+  token-valid-millisecond: 3600000
