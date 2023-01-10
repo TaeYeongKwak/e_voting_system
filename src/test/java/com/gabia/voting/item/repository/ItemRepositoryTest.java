@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -38,6 +38,22 @@ public class ItemRepositoryTest {
         assertThat(saveItem.getItemTitle()).isEqualTo(itemTitle);
     }
 
+    @Test
+    public void deleteById_test(){
+        // given
+        item = Item.builder()
+                .itemPk(1L)
+                .itemTitle("testItem")
+                .itemContent("testContent")
+                .build();
+        Item saveItem = itemRepository.save(item);
 
+        // when
+        itemRepository.delete(saveItem);
+        Optional<Item> findItem = itemRepository.findById(saveItem.getItemPk());
+
+        // then
+        assertThat(findItem.isEmpty()).isTrue();
+    }
 
 }

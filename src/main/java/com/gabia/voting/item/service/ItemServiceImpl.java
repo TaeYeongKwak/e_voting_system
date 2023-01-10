@@ -2,10 +2,13 @@ package com.gabia.voting.item.service;
 
 import com.gabia.voting.item.dto.SaveItemDTO;
 import com.gabia.voting.item.entity.Item;
+import com.gabia.voting.item.exception.ItemNotFoundException;
 import com.gabia.voting.item.repository.ItemRepository;
 import com.gabia.voting.item.repository.VoteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -19,5 +22,12 @@ public class ItemServiceImpl implements ItemService{
         Item saveItem = saveItemDTO.toEntity();
         saveItem = itemRepository.save(saveItem);
         return saveItem.getItemPk() != null;
+    }
+
+    @Transactional
+    @Override
+    public void deleteItem(Long itemPk) {
+        Item deleteItem = itemRepository.findById(itemPk).orElseThrow(ItemNotFoundException::new);
+        itemRepository.delete(deleteItem);
     }
 }
