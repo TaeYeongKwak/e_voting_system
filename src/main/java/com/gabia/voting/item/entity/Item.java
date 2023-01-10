@@ -24,7 +24,7 @@ public class Item extends BaseTimeEntity {
     @Column(name = "item_content", nullable = false)
     private String itemContent;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "item")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.REMOVE)
     private Vote vote;
 
 }
