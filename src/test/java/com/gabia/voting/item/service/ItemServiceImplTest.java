@@ -1,7 +1,9 @@
 package com.gabia.voting.item.service;
 
 import com.gabia.voting.item.dto.SaveItemDTO;
+import com.gabia.voting.item.dto.SimpleItemInfoDTO;
 import com.gabia.voting.item.entity.Item;
+import com.gabia.voting.item.entity.Vote;
 import com.gabia.voting.item.exception.ItemNotFoundException;
 import com.gabia.voting.item.repository.ItemRepository;
 import com.gabia.voting.item.repository.VoteRepository;
@@ -12,6 +14,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -96,6 +102,36 @@ public class ItemServiceImplTest {
 
         // when & then
         assertThrows(ItemNotFoundException.class, () -> itemService.deleteItem(itemPk));
+    }
+
+    @Test
+    public void getSimpleItemList_test(){
+        // given
+        int testSize = 5;
+        List<Item> itemList = new ArrayList<>();
+        for (long i = 0; i < testSize; i++){
+            itemList.add(Item.builder()
+                    .itemPk(i)
+                    .itemTitle(String.valueOf(i))
+                    .itemContent(String.valueOf(i))
+                    .vote(Vote.builder().startTime(LocalDateTime.now().minusDays(1)).build())
+                    .build());
+        }
+
+        given(itemRepository.findAllByOrderByCreatedTimeDesc()).willReturn(itemList);
+
+        // when
+        List<SimpleItemInfoDTO> simpleItemList = itemService.getSimpleItemList();
+
+        // then
+        assertThat(simpleItemList.size()).isEqualTo(testSize);
+        SimpleItemInfoDTO simpleItem;
+        for(int i = 0; i < testSize; i++){
+            simpleItem = simpleItemList.get(i);
+            assertThat(simpleItem.getItemPk()).isEqualTo(i);
+            assertThat(simpleItem.isCanVoting()).isTrue();
+        }
+
     }
 
 }
