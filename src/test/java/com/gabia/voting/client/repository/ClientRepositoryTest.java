@@ -54,5 +54,18 @@ public class ClientRepositoryTest {
         assertThat(saveClient.getClientId()).isEqualTo(clientId);
     }
 
+    @Test
+    public void findClientByClientId_test(){
+        // given
+        String clientId = client.getClientId();
+        Client saveClient = clientRepository.save(client);
+
+        // when
+        Client findClient = clientRepository.findClientByClientId(clientId).get();
+
+        // then
+        assertThat(findClient.getClientPk()).isEqualTo(saveClient.getClientPk());
+    }
+
 
 }
