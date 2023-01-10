@@ -1,5 +1,6 @@
 package com.gabia.voting.client.controller;
 
+import com.gabia.voting.client.dto.LoginRequestDTO;
 import com.gabia.voting.client.dto.SaveClientDTO;
 import com.gabia.voting.client.service.ClientService;
 import com.gabia.voting.global.dto.APIResponseDTO;
@@ -24,5 +25,9 @@ public class ClientController {
         return APIResponseDTO.success();
     }
 
+    @PostMapping(value = "/login")
+    public APIResponseDTO login(@Valid @RequestBody LoginRequestDTO loginRequestDTO){
+        return APIResponseDTO.success(clientService.login(loginRequestDTO));
+    }
 
 }
