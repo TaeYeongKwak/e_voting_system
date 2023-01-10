@@ -25,4 +25,9 @@ public class ItemController {
         return APIResponseDTO.success();
     }
 
+    @GetMapping(value = "")
+    public APIResponseDTO showItemList(){
+        return APIResponseDTO.success(itemService.getSimpleItemList());
+    }
+
 }

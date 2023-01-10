@@ -28,4 +28,9 @@ public class Vote {
     @Column(name = "end_time", nullable = false)
     private LocalDateTime endTime;
 
+    public boolean isActivation(){
+        LocalDateTime now = LocalDateTime.now();
+        return this.getStartTime().isBefore(now) && this.getEndTime().isAfter(now);
+    }
+
 }
