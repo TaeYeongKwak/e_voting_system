@@ -2,8 +2,12 @@ package com.gabia.voting.votingResult;
 
 import com.gabia.voting.client.entity.Client;
 import com.gabia.voting.client.entity.VotingRight;
+import com.gabia.voting.client.repository.ClientRepository;
+import com.gabia.voting.client.repository.VotingRightRepository;
 import com.gabia.voting.item.entity.Item;
 import com.gabia.voting.item.entity.Vote;
+import com.gabia.voting.item.repository.ItemRepository;
+import com.gabia.voting.item.repository.VoteRepository;
 import com.gabia.voting.votingResult.entity.VotingResult;
 import com.gabia.voting.votingResult.repository.VotingResultRepository;
 import com.gabia.voting.votingResult.type.OpinionType;
@@ -21,6 +25,14 @@ public class VotingResultRepositoryTest {
 
     @Autowired
     private VotingResultRepository votingResultRepository;
+    @Autowired
+    private ClientRepository clientRepository;
+    @Autowired
+    private VoteRepository voteRepository;
+    @Autowired
+    private ItemRepository itemRepository;
+    @Autowired
+    private VotingRightRepository votingRightRepository;
 
     private VotingRight votingRight;
     private Vote vote;
@@ -29,30 +41,31 @@ public class VotingResultRepositoryTest {
     @BeforeEach
     public void setUp(){
         Client client = Client.builder()
-                .clientPk(1L)
                 .clientId("testId")
                 .password("testPassword")
                 .clientName("testUser")
                 .build();
 
-        votingRight = new VotingRight(1L, client, 10);
+        client = clientRepository.save(client);
+        votingRight = new VotingRight(client, 10);
+        votingRight = votingRightRepository.save(votingRight);
 
         Item item = Item.builder()
-                .itemPk(1L)
                 .itemTitle("testItem")
                 .itemContent("testContent")
                 .build();
 
+        item = itemRepository.save(item);
         vote = Vote.builder()
-                .votePk(1L)
                 .item(item)
                 .startTime(LocalDateTime.now().minusDays(1))
                 .endTime(LocalDateTime.now().plusDays(1))
                 .build();
+        vote = voteRepository.save(vote);
 
         votingResult = VotingResult.builder()
-//                .votingRight(votingRight)
-//                .vote(vote)
+                .votingRight(votingRight)
+                .vote(vote)
                 .count(10)
                 .opinion(OpinionType.AGREEMENT)
                 .build();
@@ -69,8 +82,8 @@ public class VotingResultRepositoryTest {
 
         // then
         assertThat(saveVotingResult.getVotingResultPk()).isNotNull();
-//        assertThat(saveVotingResult.getVote().getVotePk()).isEqualTo(votePk);
-//        assertThat(saveVotingResult.getVotingRight().getVotingRightPk()).isEqualTo(votingRightPk);
+        assertThat(saveVotingResult.getVote().getVotePk()).isEqualTo(votePk);
+        assertThat(saveVotingResult.getVotingRight().getVotingRightPk()).isEqualTo(votingRightPk);
     }
 
 
