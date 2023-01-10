@@ -5,4 +5,5 @@ import com.gabia.voting.item.dto.SaveItemDTO;
 public interface ItemService {
 
     public boolean registryItem(SaveItemDTO saveItemDTO);
+    public void deleteItem(Long itemPk);
 }
