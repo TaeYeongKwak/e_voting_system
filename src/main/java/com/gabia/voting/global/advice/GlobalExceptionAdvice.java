@@ -1,6 +1,7 @@
 package com.gabia.voting.global.advice;
 
 import com.gabia.voting.global.dto.APIResponseDTO;
+import com.gabia.voting.global.exception.GlobalExceptionInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -16,13 +17,14 @@ public class GlobalExceptionAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected APIResponseDTO unknownException(Exception e){
         log.error(e.getMessage(), e);
-        return APIResponseDTO.fail(-9999, "알 수 없는 오류가 발생하였습니다.");
+        GlobalExceptionInfo exceptionInfo = GlobalExceptionInfo.UNKNOWN;
+        return APIResponseDTO.fail(exceptionInfo.getCode(), exceptionInfo.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected APIResponseDTO methodArgumentNotValidException(MethodArgumentNotValidException e){
-        return APIResponseDTO.fail(-9000, e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+        return APIResponseDTO.fail(GlobalExceptionInfo.METHOD_ARGUMENT_NOT_VALID.getCode(), e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
     }
 
 }
