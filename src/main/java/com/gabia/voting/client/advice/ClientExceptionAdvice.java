@@ -21,7 +21,7 @@ public class ClientExceptionAdvice {
     }
 
     @ExceptionHandler(ClientNotFoundException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     protected APIResponseDTO clientNotFoundException(){
         ClientExceptionInfo exceptionInfo = ClientExceptionInfo.CLIENT_NOT_FOUND;
         return APIResponseDTO.fail(exceptionInfo.getCode(), exceptionInfo.getMessage());
