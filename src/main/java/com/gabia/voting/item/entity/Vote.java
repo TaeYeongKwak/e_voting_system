@@ -38,4 +38,9 @@ public class Vote {
         return this.getStartTime().isBefore(now) && this.getEndTime().isAfter(now);
     }
 
+    public void modifyVoteTime(LocalDateTime startTime, LocalDateTime endTime){
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
 }

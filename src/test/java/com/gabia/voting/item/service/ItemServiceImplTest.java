@@ -1,9 +1,6 @@
 package com.gabia.voting.item.service;
 
-import com.gabia.voting.item.dto.DetailItemInfoDTO;
-import com.gabia.voting.item.dto.SaveItemDTO;
-import com.gabia.voting.item.dto.SaveVoteDTO;
-import com.gabia.voting.item.dto.SimpleItemInfoDTO;
+import com.gabia.voting.item.dto.*;
 import com.gabia.voting.item.entity.Item;
 import com.gabia.voting.item.entity.Vote;
 import com.gabia.voting.item.exception.ItemNotFoundException;
@@ -206,7 +203,31 @@ public class ItemServiceImplTest {
         // when & then
         assertThrows(ItemNotFoundException.class, () -> itemService.postVote(itemPk, new SaveVoteDTO()));
         verify(voteRepository, times(0)).save(any());
+    }
 
+    @Test
+    public void modifyVote_success_test(){
+        // given
+        Long itemPk = item.getItemPk();
+        Vote vote = Vote.builder()
+                .votePk(1L)
+                .item(item)
+                .startTime(LocalDateTime.now())
+                .endTime(LocalDateTime.now().plusDays(5))
+                .build();
+
+        LocalDateTime now = LocalDateTime.now();
+        ModifyVoteDTO modifyVoteDTO = new ModifyVoteDTO(now, now);
+
+        given(itemRepository.findById(any())).willReturn(Optional.of(item));
+        given(voteRepository.findVoteByItem(any())).willReturn(Optional.of(vote));
+
+        // when
+        itemService.modifyVote(itemPk, modifyVoteDTO);
+
+        // then
+        assertThat(vote.getStartTime()).isEqualTo(now);
+        assertThat(vote.getEndTime()).isEqualTo(now);
     }
 
 }

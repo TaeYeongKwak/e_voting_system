@@ -1,9 +1,6 @@
 package com.gabia.voting.item.service;
 
-import com.gabia.voting.item.dto.DetailItemInfoDTO;
-import com.gabia.voting.item.dto.SaveItemDTO;
-import com.gabia.voting.item.dto.SaveVoteDTO;
-import com.gabia.voting.item.dto.SimpleItemInfoDTO;
+import com.gabia.voting.item.dto.*;
 
 import java.util.List;
 
@@ -14,5 +11,6 @@ public interface ItemService {
     public List<SimpleItemInfoDTO> getSimpleItemList();
     public DetailItemInfoDTO getDetailItemInfo(Long itemPk);
     public void postVote(Long itemPk, SaveVoteDTO saveVoteDTO);
+    public void modifyVote(Long itemPk, ModifyVoteDTO modifyVoteDTO);
 
 }
