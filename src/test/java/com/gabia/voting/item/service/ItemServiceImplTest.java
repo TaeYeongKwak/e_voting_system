@@ -2,12 +2,14 @@ package com.gabia.voting.item.service;
 
 import com.gabia.voting.item.dto.DetailItemInfoDTO;
 import com.gabia.voting.item.dto.SaveItemDTO;
+import com.gabia.voting.item.dto.SaveVoteDTO;
 import com.gabia.voting.item.dto.SimpleItemInfoDTO;
 import com.gabia.voting.item.entity.Item;
 import com.gabia.voting.item.entity.Vote;
 import com.gabia.voting.item.exception.ItemNotFoundException;
 import com.gabia.voting.item.repository.ItemRepository;
 import com.gabia.voting.item.repository.VoteRepository;
+import com.gabia.voting.item.type.VoteType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -175,6 +177,36 @@ public class ItemServiceImplTest {
 
         // when & then
         assertThrows(ItemNotFoundException.class, () -> itemService.getDetailItemInfo(itemPk));
+    }
+
+    @Test
+    public void postVote_success_test(){
+        // given
+        LocalDateTime now = LocalDateTime.now();
+        SaveVoteDTO saveVoteDTO = new SaveVoteDTO(now.minusDays(1), now.plusDays(1), VoteType.UNLIMITED);
+        Long itemPk = item.getItemPk();
+
+        given(itemRepository.findById(any())).willReturn(Optional.of(item));
+        given(voteRepository.save(any())).willReturn(saveVoteDTO.toEntity(item));
+
+        // when
+        itemService.postVote(itemPk, saveVoteDTO);
+
+        // then
+        verify(voteRepository, times(1)).save(any());
+    }
+
+    @Test
+    public void postVote_fail_test(){
+        // given
+        Long itemPk = -1L;
+
+        given(itemRepository.findById(any())).willReturn(Optional.empty());
+
+        // when & then
+        assertThrows(ItemNotFoundException.class, () -> itemService.postVote(itemPk, new SaveVoteDTO()));
+        verify(voteRepository, times(0)).save(any());
+
     }
 
 }

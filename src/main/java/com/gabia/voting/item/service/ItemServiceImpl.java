@@ -2,8 +2,10 @@ package com.gabia.voting.item.service;
 
 import com.gabia.voting.item.dto.DetailItemInfoDTO;
 import com.gabia.voting.item.dto.SaveItemDTO;
+import com.gabia.voting.item.dto.SaveVoteDTO;
 import com.gabia.voting.item.dto.SimpleItemInfoDTO;
 import com.gabia.voting.item.entity.Item;
+import com.gabia.voting.item.entity.Vote;
 import com.gabia.voting.item.exception.ItemNotFoundException;
 import com.gabia.voting.item.repository.ItemRepository;
 import com.gabia.voting.item.repository.VoteRepository;
@@ -45,5 +47,13 @@ public class ItemServiceImpl implements ItemService{
     public DetailItemInfoDTO getDetailItemInfo(Long itemPk) {
         Item item = itemRepository.findById(itemPk).orElseThrow(ItemNotFoundException::new);
         return DetailItemInfoDTO.of(item);
+    }
+
+    @Transactional
+    @Override
+    public void postVote(Long itemPk, SaveVoteDTO saveVoteDTO) {
+        Item item = itemRepository.findById(itemPk).orElseThrow(ItemNotFoundException::new);
+        Vote saveVote = saveVoteDTO.toEntity(item);
+        voteRepository.save(saveVote);
     }
 }
