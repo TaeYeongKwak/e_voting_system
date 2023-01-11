@@ -47,7 +47,7 @@ public class VotingResultRepositoryTest {
                 .build();
 
         client = clientRepository.save(client);
-        votingRight = new VotingRight(client, 10);
+        votingRight = new VotingRight(client, 5);
         votingRight = votingRightRepository.save(votingRight);
 
         Item item = Item.builder()
@@ -66,7 +66,7 @@ public class VotingResultRepositoryTest {
         votingResult = VotingResult.builder()
                 .votingRight(votingRight)
                 .vote(vote)
-                .count(10)
+                .count(5)
                 .opinion(OpinionType.AGREEMENT)
                 .build();
     }
@@ -84,6 +84,39 @@ public class VotingResultRepositoryTest {
         assertThat(saveVotingResult.getVotingResultPk()).isNotNull();
         assertThat(saveVotingResult.getVote().getVotePk()).isEqualTo(votePk);
         assertThat(saveVotingResult.getVotingRight().getVotingRightPk()).isEqualTo(votingRightPk);
+    }
+
+    @Test
+    public void sumCountByVoteForUpdate_test(){
+        // given
+        votingResultRepository.save(votingResult);
+
+        Client client = Client.builder()
+                .clientId("testId2")
+                .password("testPassword")
+                .clientName("testUser2")
+                .build();
+
+        client = clientRepository.save(client);
+        VotingRight votingRight = new VotingRight(client, 5);
+        votingRight = votingRightRepository.save(votingRight);
+
+        VotingResult votingResult2 = VotingResult.builder()
+                .votingRight(votingRight)
+                .vote(vote)
+                .count(4)
+                .opinion(OpinionType.AGREEMENT)
+                .build();
+
+        votingResult2 = votingResultRepository.save(votingResult2);
+
+        int resultCount = votingResult.getCount() + votingResult2.getCount();
+
+        // when
+        int sumCount = votingResultRepository.sumCountByVoteForUpdate(vote.getVotePk());
+
+        // then
+        assertThat(sumCount).isEqualTo(resultCount);
     }
 
 
