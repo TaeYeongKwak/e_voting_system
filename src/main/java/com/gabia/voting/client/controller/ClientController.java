@@ -3,12 +3,10 @@ package com.gabia.voting.client.controller;
 import com.gabia.voting.client.dto.LoginRequestDTO;
 import com.gabia.voting.client.dto.SaveClientDTO;
 import com.gabia.voting.client.service.ClientService;
+import com.gabia.voting.client.util.LoginInfoDecoder;
 import com.gabia.voting.global.dto.APIResponseDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -26,7 +24,8 @@ public class ClientController {
     }
 
     @PostMapping(value = "/login")
-    public APIResponseDTO login(@Valid @RequestBody LoginRequestDTO loginRequestDTO){
+    public APIResponseDTO login(@RequestHeader(value = "Authorization") String encodingLoginInfo){
+        LoginRequestDTO loginRequestDTO = LoginInfoDecoder.basicAuthDecoder(encodingLoginInfo);
         return APIResponseDTO.success(clientService.login(loginRequestDTO));
     }
 

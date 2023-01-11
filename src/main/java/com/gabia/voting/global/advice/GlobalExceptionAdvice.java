@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.validation.ConstraintViolationException;
+
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionAdvice {
@@ -25,6 +27,13 @@ public class GlobalExceptionAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected APIResponseDTO methodArgumentNotValidException(MethodArgumentNotValidException e){
         return APIResponseDTO.fail(GlobalExceptionInfo.METHOD_ARGUMENT_NOT_VALID.getCode(), e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    protected APIResponseDTO constraintViolationException(ConstraintViolationException e){
+        String message = e.getMessage().substring(e.getMessage().indexOf(":") + 2);
+        return APIResponseDTO.fail(GlobalExceptionInfo.METHOD_ARGUMENT_NOT_VALID.getCode(), message);
     }
 
 }
