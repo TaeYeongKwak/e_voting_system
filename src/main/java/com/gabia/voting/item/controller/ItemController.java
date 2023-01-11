@@ -1,11 +1,14 @@
 package com.gabia.voting.item.controller;
 
 import com.gabia.voting.global.dto.APIResponseDTO;
+import com.gabia.voting.item.dto.ModifyVoteDTO;
 import com.gabia.voting.item.dto.SaveItemDTO;
 import com.gabia.voting.item.dto.SaveVoteDTO;
 import com.gabia.voting.item.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,6 +42,12 @@ public class ItemController {
     @PostMapping(value = "/{item-pk}/vote")
     public APIResponseDTO postVote(@PathVariable("item-pk") Long itemPk, @RequestBody SaveVoteDTO saveVoteDTO){
         itemService.postVote(itemPk, saveVoteDTO);
+        return APIResponseDTO.success();
+    }
+
+    @PutMapping(value = "/{item-pk}/vote")
+    public APIResponseDTO modifyVote(@PathVariable("item-pk") Long itemPk, @Valid @RequestBody ModifyVoteDTO modifyVoteDTO){
+        itemService.modifyVote(itemPk, modifyVoteDTO);
         return APIResponseDTO.success();
     }
 
