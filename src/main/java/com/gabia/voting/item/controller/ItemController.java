@@ -30,4 +30,9 @@ public class ItemController {
         return APIResponseDTO.success(itemService.getSimpleItemList());
     }
 
+    @GetMapping(value = "/{item-pk}")
+    public APIResponseDTO showDetailItem(@PathVariable("item-pk") Long itemPk){
+        return APIResponseDTO.success(itemService.getDetailItemInfo(itemPk));
+    }
+
 }

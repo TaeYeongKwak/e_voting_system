@@ -138,7 +138,7 @@ public class ItemServiceImplTest {
     }
 
     @Test
-    public void getDetailItemInfo_test(){
+    public void getDetailItemInfo_success_test(){
         // given
         Vote vote = Vote.builder()
                 .votePk(1L)
@@ -165,6 +165,16 @@ public class ItemServiceImplTest {
         assertThat(detailItemInfoDTO.getItemPk()).isEqualTo(itemPk);
         assertThat(detailItemInfoDTO.isCanVoting()).isTrue();
         assertThat(detailItemInfoDTO.getVoteInfo().getVotePk()).isEqualTo(votePk);
+    }
+
+    @Test
+    public void getDetailItemInfo_fail_test(){
+        // given
+        Long itemPk = -1L;
+        given(itemRepository.findById(any())).willReturn(Optional.empty());
+
+        // when & then
+        assertThrows(ItemNotFoundException.class, () -> itemService.getDetailItemInfo(itemPk));
     }
 
 }
