@@ -24,7 +24,7 @@ public class LoginInfoDecoder {
             StringTokenizer stringTokenizer = new StringTokenizer(decodedLoginInfo, ":");
             return new LoginRequestDTO(stringTokenizer.nextToken(), stringTokenizer.nextToken());
         }catch (Exception e){
-            log.error(e.getMessage(), e);
+            log.debug(e.getMessage(), e);
             throw new LoginInfoFailDecodingException();
         }
     }
