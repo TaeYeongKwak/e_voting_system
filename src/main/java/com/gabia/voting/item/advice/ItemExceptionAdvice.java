@@ -2,6 +2,7 @@ package com.gabia.voting.item.advice;
 
 import com.gabia.voting.global.dto.APIResponseDTO;
 import com.gabia.voting.item.entity.Vote;
+import com.gabia.voting.item.exception.InputErrorException;
 import com.gabia.voting.item.exception.ItemExceptionInfo;
 import com.gabia.voting.item.exception.ItemNotFoundException;
 import com.gabia.voting.item.exception.VoteNotFoundException;
@@ -27,6 +28,13 @@ public class ItemExceptionAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public APIResponseDTO voteNotFoundException(){
         ItemExceptionInfo exceptionInfo = ItemExceptionInfo.VOTE_NOT_FOUND;
+        return APIResponseDTO.fail(exceptionInfo.getCode(), exceptionInfo.getMessage());
+    }
+
+    @ExceptionHandler(InputErrorException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public APIResponseDTO inputErrorException(){
+        ItemExceptionInfo exceptionInfo = ItemExceptionInfo.INPUT_ERROR;
         return APIResponseDTO.fail(exceptionInfo.getCode(), exceptionInfo.getMessage());
     }
 

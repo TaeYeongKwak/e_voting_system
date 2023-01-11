@@ -3,6 +3,7 @@ package com.gabia.voting.item.service;
 import com.gabia.voting.item.dto.*;
 import com.gabia.voting.item.entity.Item;
 import com.gabia.voting.item.entity.Vote;
+import com.gabia.voting.item.exception.InputErrorException;
 import com.gabia.voting.item.exception.ItemNotFoundException;
 import com.gabia.voting.item.exception.VoteNotFoundException;
 import com.gabia.voting.item.repository.ItemRepository;

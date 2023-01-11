@@ -40,7 +40,7 @@ public class ItemController {
     }
 
     @PostMapping(value = "/{item-pk}/vote")
-    public APIResponseDTO postVote(@PathVariable("item-pk") Long itemPk, @RequestBody SaveVoteDTO saveVoteDTO){
+    public APIResponseDTO postVote(@PathVariable("item-pk") Long itemPk, @Valid @RequestBody SaveVoteDTO saveVoteDTO){
         itemService.postVote(itemPk, saveVoteDTO);
         return APIResponseDTO.success();
     }
