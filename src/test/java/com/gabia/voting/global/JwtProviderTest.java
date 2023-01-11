@@ -2,6 +2,7 @@ package com.gabia.voting.global;
 
 import com.gabia.voting.client.entity.Client;
 import com.gabia.voting.client.entity.Role;
+import com.gabia.voting.client.exception.ClientDoesNotHaveRoleException;
 import com.gabia.voting.client.type.ClientType;
 import com.gabia.voting.global.config.jwt.JwtProvider;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class JwtProviderTest {
 
@@ -40,7 +42,7 @@ public class JwtProviderTest {
     }
 
     @Test
-    public void createToken_test(){
+    public void createToken_success_test(){
         // given
         Long clientPk = client.getClientPk();
         Set<Role> roles = client.getClientRole();
@@ -50,6 +52,15 @@ public class JwtProviderTest {
 
         // then
         assertThat(token).isNotNull();
+    }
+
+    @Test
+    public void createToken_fail_test(){
+        // given
+        Long clientPk = client.getClientPk();
+
+        // when & then
+        assertThrows(ClientDoesNotHaveRoleException.class, () -> jwtProvider.createToken(clientPk, null));
     }
 
     @Test

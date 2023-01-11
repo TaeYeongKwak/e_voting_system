@@ -48,4 +48,11 @@ public class ClientExceptionAdvice {
         return APIResponseDTO.fail(exceptionInfo.getCode(), exceptionInfo.getMessage());
     }
 
+    @ExceptionHandler(ClientDoesNotHaveRoleException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    protected APIResponseDTO clientDoesNotHaveException(){
+        ClientExceptionInfo exceptionInfo = ClientExceptionInfo.CLIENT_DOES_NOT_HAVE_ROLE;
+        return APIResponseDTO.fail(exceptionInfo.getCode(), exceptionInfo.getMessage());
+    }
+
 }

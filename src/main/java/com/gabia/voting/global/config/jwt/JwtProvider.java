@@ -1,6 +1,7 @@
 package com.gabia.voting.global.config.jwt;
 
 import com.gabia.voting.client.entity.Role;
+import com.gabia.voting.client.exception.ClientDoesNotHaveRoleException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,7 @@ public class JwtProvider {
 
     public String createToken(Long clientPk, Set<Role> roles){
         Claims claims = Jwts.claims().setSubject(Long.toString(clientPk));
-        claims.put("roles", convertroleString(roles));
+        claims.put("roles", convertRoleString(roles));
         Date now = new Date();
         return Jwts.builder()
                 .setClaims(claims)
@@ -78,12 +79,16 @@ public class JwtProvider {
         return null;
     }
 
-    private String convertroleString(Set<Role> roles){
-        StringBuffer roleString = new StringBuffer();
-        for (Role role : roles){
-            roleString.append(role.getAuthorityName() + " ");
+    private String convertRoleString(Set<Role> roles){
+        try{
+            StringBuffer roleString = new StringBuffer();
+            for (Role role : roles){
+                roleString.append(role.getAuthorityName() + " ");
+            }
+            return roleString.toString();
+        }catch (NullPointerException e){
+            throw new ClientDoesNotHaveRoleException();
         }
-        return roleString.toString();
     }
 
     private Set<GrantedAuthority> convertAuthorities(String roleString){
