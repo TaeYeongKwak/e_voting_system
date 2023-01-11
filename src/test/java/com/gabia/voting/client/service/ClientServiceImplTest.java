@@ -1,12 +1,16 @@
 package com.gabia.voting.client.service;
 
+import com.gabia.voting.client.dto.LoginRequestDTO;
 import com.gabia.voting.client.dto.SaveClientDTO;
 import com.gabia.voting.client.entity.Client;
 import com.gabia.voting.client.entity.VotingRight;
+import com.gabia.voting.client.exception.ClientNotFoundException;
 import com.gabia.voting.client.exception.DuplicationClientIdException;
+import com.gabia.voting.client.exception.PasswordMisMatchException;
 import com.gabia.voting.client.repository.ClientRepository;
 import com.gabia.voting.client.repository.VotingRightRepository;
 import com.gabia.voting.client.type.ClientType;
+import com.gabia.voting.global.config.jwt.JwtProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +19,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -35,6 +39,8 @@ public class ClientServiceImplTest {
     private VotingRightRepository votingRightRepository;
     @Mock
     private PasswordEncoder passwordEncoder;
+    @Mock
+    private JwtProvider jwtProvider;
 
     private Client client;
     private SaveClientDTO saveClientDTO;
@@ -100,5 +106,45 @@ public class ClientServiceImplTest {
 
         // when & then
         assertThrows(DuplicationClientIdException.class, () -> clientService.registryClient(saveClientDTO));
+    }
+
+    @Test
+    public void login_success_test(){
+        // given
+        LoginRequestDTO loginRequestDTO = new LoginRequestDTO(client.getClientId(), client.getPassword());
+        String testToken = "test_jwt";
+
+        given(clientRepository.findClientByClientId(any())).willReturn(Optional.of(client));
+        given(passwordEncoder.matches(any(), any())).willReturn(true);
+        given(jwtProvider.createToken(any(), any())).willReturn(testToken);
+
+        // when
+        String loginToken = clientService.login(loginRequestDTO);
+
+        // then
+        assertThat(loginToken).isEqualTo(testToken);
+    }
+
+    @Test
+    public void login_password_mismatch_test(){
+        // given
+        LoginRequestDTO loginRequestDTO = new LoginRequestDTO(client.getClientId(), client.getPassword());
+
+        given(clientRepository.findClientByClientId(any())).willReturn(Optional.of(client));
+        given(passwordEncoder.matches(any(), any())).willReturn(false);
+
+        // when & then
+        assertThrows(PasswordMisMatchException.class, () -> clientService.login(loginRequestDTO));
+    }
+
+    @Test
+    public void login_not_found_test(){
+        // given
+        LoginRequestDTO loginRequestDTO = new LoginRequestDTO(client.getClientId(), client.getPassword());
+
+        given(clientRepository.findClientByClientId(any())).willReturn(Optional.empty());
+
+        // when & then
+        assertThrows(ClientNotFoundException.class, () -> clientService.login(loginRequestDTO));
     }
 }
