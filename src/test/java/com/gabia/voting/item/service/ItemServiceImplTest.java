@@ -1,5 +1,6 @@
 package com.gabia.voting.item.service;
 
+import com.gabia.voting.item.dto.DetailItemInfoDTO;
 import com.gabia.voting.item.dto.SaveItemDTO;
 import com.gabia.voting.item.dto.SimpleItemInfoDTO;
 import com.gabia.voting.item.entity.Item;
@@ -134,6 +135,36 @@ public class ItemServiceImplTest {
             assertThat(simpleItem.isCanVoting()).isTrue();
         }
 
+    }
+
+    @Test
+    public void getDetailItemInfo_test(){
+        // given
+        Vote vote = Vote.builder()
+                .votePk(1L)
+                .startTime(LocalDateTime.now())
+                .endTime(LocalDateTime.now().plusDays(5))
+                .build();
+
+        item = Item.builder()
+                .itemPk(1L)
+                .vote(vote)
+                .itemTitle(saveItemDTO.getItemTitle())
+                .itemContent(saveItemDTO.getItemContent())
+                .build();
+
+        Long itemPk = item.getItemPk();
+        Long votePk = vote.getVotePk();
+
+        given(itemRepository.findById(any())).willReturn(Optional.of(item));
+
+        // when
+        DetailItemInfoDTO detailItemInfoDTO = itemService.getDetailItemInfo(itemPk);
+
+        // then
+        assertThat(detailItemInfoDTO.getItemPk()).isEqualTo(itemPk);
+        assertThat(detailItemInfoDTO.isCanVoting()).isTrue();
+        assertThat(detailItemInfoDTO.getVoteInfo().getVotePk()).isEqualTo(votePk);
     }
 
 }

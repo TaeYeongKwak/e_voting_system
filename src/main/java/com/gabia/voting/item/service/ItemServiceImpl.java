@@ -1,5 +1,6 @@
 package com.gabia.voting.item.service;
 
+import com.gabia.voting.item.dto.DetailItemInfoDTO;
 import com.gabia.voting.item.dto.SaveItemDTO;
 import com.gabia.voting.item.dto.SimpleItemInfoDTO;
 import com.gabia.voting.item.entity.Item;
@@ -38,5 +39,11 @@ public class ItemServiceImpl implements ItemService{
     public List<SimpleItemInfoDTO> getSimpleItemList() {
         List<Item> itemList = itemRepository.findAllByOrderByCreatedTimeDesc();
         return itemList.stream().map(SimpleItemInfoDTO::of).collect(Collectors.toList());
+    }
+
+    @Override
+    public DetailItemInfoDTO getDetailItemInfo(Long itemPk) {
+        Item item = itemRepository.findById(itemPk).orElseThrow(ItemNotFoundException::new);
+        return DetailItemInfoDTO.of(item);
     }
 }
