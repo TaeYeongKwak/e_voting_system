@@ -1,5 +1,6 @@
 package com.gabia.voting.item.entity;
 
+import com.gabia.voting.item.type.VoteType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,9 +29,18 @@ public class Vote {
     @Column(name = "end_time", nullable = false)
     private LocalDateTime endTime;
 
+    @Column(name = "vote_type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private VoteType voteType;
+
     public boolean isActivation(){
         LocalDateTime now = LocalDateTime.now();
         return this.getStartTime().isBefore(now) && this.getEndTime().isAfter(now);
+    }
+
+    public void modifyVoteTime(LocalDateTime startTime, LocalDateTime endTime){
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
 }

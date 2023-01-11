@@ -1,12 +1,12 @@
 package com.gabia.voting.item.service;
 
-import com.gabia.voting.item.dto.SaveItemDTO;
-import com.gabia.voting.item.dto.SimpleItemInfoDTO;
+import com.gabia.voting.item.dto.*;
 import com.gabia.voting.item.entity.Item;
 import com.gabia.voting.item.entity.Vote;
 import com.gabia.voting.item.exception.ItemNotFoundException;
 import com.gabia.voting.item.repository.ItemRepository;
 import com.gabia.voting.item.repository.VoteRepository;
+import com.gabia.voting.item.type.VoteType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -134,6 +134,100 @@ public class ItemServiceImplTest {
             assertThat(simpleItem.isCanVoting()).isTrue();
         }
 
+    }
+
+    @Test
+    public void getDetailItemInfo_success_test(){
+        // given
+        Vote vote = Vote.builder()
+                .votePk(1L)
+                .startTime(LocalDateTime.now())
+                .endTime(LocalDateTime.now().plusDays(5))
+                .build();
+
+        item = Item.builder()
+                .itemPk(1L)
+                .vote(vote)
+                .itemTitle(saveItemDTO.getItemTitle())
+                .itemContent(saveItemDTO.getItemContent())
+                .build();
+
+        Long itemPk = item.getItemPk();
+        Long votePk = vote.getVotePk();
+
+        given(itemRepository.findById(any())).willReturn(Optional.of(item));
+
+        // when
+        DetailItemInfoDTO detailItemInfoDTO = itemService.getDetailItemInfo(itemPk);
+
+        // then
+        assertThat(detailItemInfoDTO.getItemPk()).isEqualTo(itemPk);
+        assertThat(detailItemInfoDTO.isCanVoting()).isTrue();
+        assertThat(detailItemInfoDTO.getVoteInfo().getVotePk()).isEqualTo(votePk);
+    }
+
+    @Test
+    public void getDetailItemInfo_fail_test(){
+        // given
+        Long itemPk = -1L;
+        given(itemRepository.findById(any())).willReturn(Optional.empty());
+
+        // when & then
+        assertThrows(ItemNotFoundException.class, () -> itemService.getDetailItemInfo(itemPk));
+    }
+
+    @Test
+    public void postVote_success_test(){
+        // given
+        LocalDateTime now = LocalDateTime.now();
+        SaveVoteDTO saveVoteDTO = new SaveVoteDTO(now.minusDays(1), now.plusDays(1), VoteType.UNLIMITED);
+        Long itemPk = item.getItemPk();
+
+        given(itemRepository.findById(any())).willReturn(Optional.of(item));
+        given(voteRepository.save(any())).willReturn(saveVoteDTO.toEntity(item));
+
+        // when
+        itemService.postVote(itemPk, saveVoteDTO);
+
+        // then
+        verify(voteRepository, times(1)).save(any());
+    }
+
+    @Test
+    public void postVote_fail_test(){
+        // given
+        Long itemPk = -1L;
+
+        given(itemRepository.findById(any())).willReturn(Optional.empty());
+
+        // when & then
+        assertThrows(ItemNotFoundException.class, () -> itemService.postVote(itemPk, new SaveVoteDTO()));
+        verify(voteRepository, times(0)).save(any());
+    }
+
+    @Test
+    public void modifyVote_success_test(){
+        // given
+        Long itemPk = item.getItemPk();
+        Vote vote = Vote.builder()
+                .votePk(1L)
+                .item(item)
+                .startTime(LocalDateTime.now())
+                .endTime(LocalDateTime.now().plusDays(5))
+                .build();
+
+        LocalDateTime now = LocalDateTime.now();
+        ModifyVoteDTO modifyVoteDTO = new ModifyVoteDTO(now, now);
+
+        given(itemRepository.findById(any())).willReturn(Optional.of(item));
+        given(voteRepository.findVoteByItem(any())).willReturn(Optional.of(vote));
+
+        // when
+        itemService.modifyVote(itemPk, modifyVoteDTO);
+
+        // then
+        assertThat(vote.getStartTime()).isEqualTo(now);
+        assertThat(vote.getEndTime()).isEqualTo(now);
     }
 
 }

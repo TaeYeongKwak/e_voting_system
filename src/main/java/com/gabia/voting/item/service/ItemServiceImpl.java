@@ -1,9 +1,11 @@
 package com.gabia.voting.item.service;
 
-import com.gabia.voting.item.dto.SaveItemDTO;
-import com.gabia.voting.item.dto.SimpleItemInfoDTO;
+import com.gabia.voting.item.dto.*;
 import com.gabia.voting.item.entity.Item;
+import com.gabia.voting.item.entity.Vote;
+import com.gabia.voting.item.exception.InputErrorException;
 import com.gabia.voting.item.exception.ItemNotFoundException;
+import com.gabia.voting.item.exception.VoteNotFoundException;
 import com.gabia.voting.item.repository.ItemRepository;
 import com.gabia.voting.item.repository.VoteRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,4 +41,27 @@ public class ItemServiceImpl implements ItemService{
         List<Item> itemList = itemRepository.findAllByOrderByCreatedTimeDesc();
         return itemList.stream().map(SimpleItemInfoDTO::of).collect(Collectors.toList());
     }
+
+    @Override
+    public DetailItemInfoDTO getDetailItemInfo(Long itemPk) {
+        Item item = itemRepository.findById(itemPk).orElseThrow(ItemNotFoundException::new);
+        return DetailItemInfoDTO.of(item);
+    }
+
+    @Transactional
+    @Override
+    public void postVote(Long itemPk, SaveVoteDTO saveVoteDTO) {
+        Item item = itemRepository.findById(itemPk).orElseThrow(ItemNotFoundException::new);
+        Vote saveVote = saveVoteDTO.toEntity(item);
+        voteRepository.save(saveVote);
+    }
+
+    @Transactional
+    @Override
+    public void modifyVote(Long itemPk, ModifyVoteDTO modifyVoteDTO) {
+        Item item = itemRepository.findById(itemPk).orElseThrow(ItemNotFoundException::new);
+        Vote modifyVote = voteRepository.findVoteByItem(item).orElseThrow(VoteNotFoundException::new);
+        modifyVote.modifyVoteTime(modifyVoteDTO.getStartTime(), modifyVoteDTO.getEndTime());
+    }
+
 }
