@@ -13,5 +13,3 @@ public enum GlobalExceptionInfo {
     private int code;
     private String message;
 }
-
-
