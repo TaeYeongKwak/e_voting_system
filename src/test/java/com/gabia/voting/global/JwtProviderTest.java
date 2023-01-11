@@ -107,7 +107,7 @@ public class JwtProviderTest {
     }
 
     @Test
-    public void getAuthentication_test(){
+    public void getAuthentication_success_test() {
         // given
         Long clientPk = client.getClientPk();
         Set<Role> roles = client.getClientRole();
@@ -120,7 +120,7 @@ public class JwtProviderTest {
 
         // then
         assertThat(authentication.getName()).isEqualTo(Long.toString(clientPk));
-        for (GrantedAuthority authority : authentication.getAuthorities()){
+        for (GrantedAuthority authority : authentication.getAuthorities()) {
             assertThat(authority.getAuthority()).isIn(authorityNames);
         }
     }

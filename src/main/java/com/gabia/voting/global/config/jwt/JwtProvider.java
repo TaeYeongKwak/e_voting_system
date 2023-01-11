@@ -12,10 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.security.Key;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -42,7 +39,7 @@ public class JwtProvider {
     }
 
     public Authentication getAuthentication(String token){
-        Claims claims = this.getTokenClaims(token).getBody();
+        Claims claims = this.getTokenClaims(token).get();
         String roleString = claims.get("roles", String.class);
         Set<GrantedAuthority> authorities = convertAuthorities(roleString);
         User principal = new User(claims.getSubject(), "", authorities);
@@ -51,19 +48,24 @@ public class JwtProvider {
 
     public boolean validToken(String token){
         try {
-            Claims claims = this.getTokenClaims(token).getBody();
+            Optional<Claims> optionalClaims = this.getTokenClaims(token);
+            if (optionalClaims.isEmpty())
+                return false;
+            Claims claims = optionalClaims.get();
             return (claims != null) && claims.getExpiration().after(new Date());
         }catch(Exception e) {
             return false;
         }
     }
 
-    private Jws<Claims> getTokenClaims(String token){
+    private Optional<Claims> getTokenClaims(String token){
         try{
-            return Jwts.parserBuilder()
+            Claims tokenClaims = Jwts.parserBuilder()
                     .setSigningKey(key)
                     .build()
-                    .parseClaimsJws(token);
+                    .parseClaimsJws(token)
+                    .getBody();
+            return Optional.ofNullable(tokenClaims);
         } catch (SecurityException e) {
             log.info("JWT 서명이 옳바르지 않습니다. : " + token);
         } catch (MalformedJwtException e) {
@@ -76,7 +78,7 @@ public class JwtProvider {
             log.info("JWT 토큰 압축이 옳바르지 않습니다. : " + token);
             log.error(e.getMessage(), e);
         }
-        return null;
+        return Optional.empty();
     }
 
     private String convertRoleString(Set<Role> roles){
