@@ -2,6 +2,7 @@ package com.gabia.voting.item.controller;
 
 import com.gabia.voting.global.dto.APIResponseDTO;
 import com.gabia.voting.item.dto.SaveItemDTO;
+import com.gabia.voting.item.dto.SaveVoteDTO;
 import com.gabia.voting.item.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +34,12 @@ public class ItemController {
     @GetMapping(value = "/{item-pk}")
     public APIResponseDTO showDetailItem(@PathVariable("item-pk") Long itemPk){
         return APIResponseDTO.success(itemService.getDetailItemInfo(itemPk));
+    }
+
+    @PostMapping(value = "/{item-pk}/vote")
+    public APIResponseDTO postVote(@PathVariable("item-pk") Long itemPk, @RequestBody SaveVoteDTO saveVoteDTO){
+        itemService.postVote(itemPk, saveVoteDTO);
+        return APIResponseDTO.success();
     }
 
 }
