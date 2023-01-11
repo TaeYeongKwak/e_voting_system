@@ -2,6 +2,7 @@ package com.gabia.voting.item.repository;
 
 import com.gabia.voting.item.entity.Item;
 import com.gabia.voting.item.entity.Vote;
+import com.gabia.voting.item.type.VoteType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,7 @@ public class VoteRepositoryTest {
                 .item(item)
                 .startTime(LocalDateTime.now())
                 .endTime(LocalDateTime.now().plusDays(5))
+                .voteType(VoteType.UNLIMITED)
                 .build();
 
         // when
