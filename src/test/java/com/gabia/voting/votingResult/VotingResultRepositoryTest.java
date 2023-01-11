@@ -8,6 +8,7 @@ import com.gabia.voting.item.entity.Item;
 import com.gabia.voting.item.entity.Vote;
 import com.gabia.voting.item.repository.ItemRepository;
 import com.gabia.voting.item.repository.VoteRepository;
+import com.gabia.voting.votingResult.dto.OpinionCountDTO;
 import com.gabia.voting.votingResult.entity.VotingResult;
 import com.gabia.voting.votingResult.repository.VotingResultRepository;
 import com.gabia.voting.votingResult.type.OpinionType;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -113,10 +115,34 @@ public class VotingResultRepositoryTest {
         int resultCount = votingResult.getCount() + votingResult2.getCount();
 
         // when
-        int sumCount = votingResultRepository.sumCountByVoteForUpdate(vote.getVotePk());
+        int sumCount = votingResultRepository.sumCountByVote(vote.getVotePk());
 
         // then
         assertThat(sumCount).isEqualTo(resultCount);
+    }
+
+    @Test
+    public void findAllByVote_test(){
+        // given
+        votingResultRepository.save(votingResult);
+
+        // when
+        List<VotingResult> list = votingResultRepository.findAllByVote(vote);
+
+        // then
+        assertThat(list.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void searchOpinionCountVotingResultByVote_test(){
+        // given
+        votingResultRepository.save(votingResult);
+
+        // when
+        List<OpinionCountDTO> list = votingResultRepository.searchOpinionCountVotingResultByVote(vote.getVotePk());
+
+        // then
+        assertThat(list.get(0).getCount()).isEqualTo(Long.parseLong(votingResult.getCount().toString()));
     }
 
 
