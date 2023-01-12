@@ -8,6 +8,7 @@ import com.gabia.voting.item.entity.Item;
 import com.gabia.voting.item.entity.Vote;
 import com.gabia.voting.item.repository.ItemRepository;
 import com.gabia.voting.item.repository.VoteRepository;
+import com.gabia.voting.item.type.VoteType;
 import com.gabia.voting.votingResult.dto.OpinionCountDTO;
 import com.gabia.voting.votingResult.entity.VotingResult;
 import com.gabia.voting.votingResult.type.OpinionType;
@@ -57,11 +58,14 @@ public class VotingResultRepositoryTest {
                 .build();
 
         item = itemRepository.save(item);
+
         vote = Vote.builder()
                 .item(item)
                 .startTime(LocalDateTime.now().minusDays(1))
                 .endTime(LocalDateTime.now().plusDays(1))
+                .voteType(VoteType.UNLIMITED)
                 .build();
+
         vote = voteRepository.save(vote);
 
         votingResult = VotingResult.builder()
@@ -85,39 +89,6 @@ public class VotingResultRepositoryTest {
         assertThat(saveVotingResult.getVotingResultPk()).isNotNull();
         assertThat(saveVotingResult.getVote().getVotePk()).isEqualTo(votePk);
         assertThat(saveVotingResult.getVotingRight().getVotingRightPk()).isEqualTo(votingRightPk);
-    }
-
-    @Test
-    public void sumCountByVoteForUpdate_test(){
-        // given
-        votingResultRepository.save(votingResult);
-
-        Client client = Client.builder()
-                .clientId("testId2")
-                .password("testPassword")
-                .clientName("testUser2")
-                .build();
-
-        client = clientRepository.save(client);
-        VotingRight votingRight = new VotingRight(client, 5);
-        votingRight = votingRightRepository.save(votingRight);
-
-        VotingResult votingResult2 = VotingResult.builder()
-                .votingRight(votingRight)
-                .vote(vote)
-                .count(4)
-                .opinion(OpinionType.AGREEMENT)
-                .build();
-
-        votingResult2 = votingResultRepository.save(votingResult2);
-
-        int resultCount = votingResult.getCount() + votingResult2.getCount();
-
-        // when
-        int sumCount = votingResultRepository.sumCountByVote(vote.getVotePk());
-
-        // then
-        assertThat(sumCount).isEqualTo(resultCount);
     }
 
     @Test

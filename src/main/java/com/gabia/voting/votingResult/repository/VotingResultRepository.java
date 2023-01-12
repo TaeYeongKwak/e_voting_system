@@ -10,13 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.LockModeType;
 import java.util.List;
-import java.util.Optional;
 
 public interface VotingResultRepository extends JpaRepository<VotingResult, Long> {
-
-//    @Lock(value = LockModeType.PESSIMISTIC_WRITE)
-    @Query("select sum(v.count) FROM voting_result v where v.vote.votePk = :votePk")
-    public int sumCountByVote(Long votePk);
 
     @Lock(value = LockModeType.PESSIMISTIC_WRITE)
     public List<VotingResult> findAllByVote(Vote vote);

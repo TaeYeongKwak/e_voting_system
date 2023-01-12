@@ -4,9 +4,13 @@ import com.gabia.voting.votingResult.dto.VoteRequestDTO;
 import com.gabia.voting.votingResult.entity.VotingResult;
 import com.gabia.voting.votingResult.exception.ExceedLimitedVotingRightCountException;
 import com.gabia.voting.votingResult.repository.VotingResultRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 
+@Component
+@Slf4j
 public class FirstServedLimitedVoteStrategy extends VoteStrategy{
 
     public static final int LIMITED_COUNT = 10;
@@ -19,6 +23,7 @@ public class FirstServedLimitedVoteStrategy extends VoteStrategy{
     @Override
     public VotingResult vote(VoteRequestDTO voteRequestDTO) {
         int sumCount = votingResultRepository.findAllByVote(voteRequestDTO.getVote()).stream().mapToInt(vr -> vr.getCount()).sum();
+        log.info(sumCount + " --------------------------------------------------------------------------");
         if (sumCount >= LIMITED_COUNT)
             throw new ExceedLimitedVotingRightCountException();
 

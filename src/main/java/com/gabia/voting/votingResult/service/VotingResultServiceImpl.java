@@ -23,8 +23,9 @@ import com.gabia.voting.votingResult.repository.VotingResultRepository;
 import com.gabia.voting.votingResult.strategy.VoteStrategy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,9 +39,9 @@ public class VotingResultServiceImpl implements VotingResultService{
     private final ClientRepository clientRepository;
     private final VotingRightRepository votingRightRepository;
 
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     @Override
-    public void useVotingRight(Long itemPk, Long clientPk, VoteRequestDTO voteRequestDTO) {
+    public synchronized void useVotingRight(Long itemPk, Long clientPk, VoteRequestDTO voteRequestDTO) {
         Client client = clientRepository.findById(clientPk).orElseThrow(ClientNotFoundException::new);
         VotingRight votingRight = votingRightRepository.findByClient(client).orElseThrow(VotingRightNotFoundException::new);
         if (votingRight.getCount() < voteRequestDTO.getCount()) throw new ExceedLimitedVotingRightCountException();
