@@ -4,6 +4,8 @@ import com.gabia.voting.global.dto.APIResponseDTO;
 import com.gabia.voting.votingResult.dto.VoteRequestDTO;
 import com.gabia.voting.votingResult.service.VotingResultService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,6 +21,12 @@ public class VotingResultController {
                                  @RequestBody VoteRequestDTO voteRequestDTO){
         votingResultService.useVotingRight(itemPk, clientPk, voteRequestDTO);
         return APIResponseDTO.success();
+    }
+
+    @GetMapping(value = "/vote/{item-pk}")
+    public APIResponseDTO showVoteResult(@PathVariable("item-pk") Long itemPk){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return APIResponseDTO.success(votingResultService.getVoteResult(itemPk, Long.parseLong(auth.getName())));
     }
 
 }

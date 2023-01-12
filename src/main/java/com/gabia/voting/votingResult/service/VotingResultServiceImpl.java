@@ -60,14 +60,15 @@ public class VotingResultServiceImpl implements VotingResultService{
     }
 
     @Override
-    public VoteResultInfoDTO getVoteResult(Long itemPk, ClientType clientType) {
+    public VoteResultInfoDTO getVoteResult(Long itemPk, Long clientPk) {
         Item item = itemRepository.findById(itemPk).orElseThrow(ItemNotFoundException::new);
         if (!item.hasVote()) throw new VoteNotFoundException();
 
         List<OpinionCountDTO> shareholderResult = votingResultRepository.searchOpinionCountVotingResultByVote(item.getVote().getVotePk());
         VoteResultInfoDTO voteResultInfoDTO = new VoteResultInfoDTO(shareholderResult);
 
-        if (clientType == ClientType.ROLE_MANAGER){
+        Client client = clientRepository.findById(clientPk).orElseThrow(ClientNotFoundException::new);
+        if (client.getClientType() == ClientType.ROLE_MANAGER){
             List<SimpleVotingResultDTO> managerResult = votingResultRepository.findAllByVote(item.getVote())
                     .stream()
                     .map(SimpleVotingResultDTO::of)

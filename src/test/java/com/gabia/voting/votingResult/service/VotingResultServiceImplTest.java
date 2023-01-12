@@ -122,14 +122,23 @@ public class VotingResultServiceImplTest {
         // given
         Long itemPk = item.getItemPk();
 
+        Client manager = Client.builder()
+                .clientPk(1L)
+                .clientType(ClientType.ROLE_MANAGER)
+                .clientId("testId")
+                .password("testPassword")
+                .clientName("testUser")
+                .build();
+
         OpinionCountDTO opinionCountDTO = new OpinionCountDTO(votingResult.getOpinion(), votingResult.getCount());
 
+        given(clientRepository.findById(any())).willReturn(Optional.of(manager));
         given(itemRepository.findById(any())).willReturn(Optional.of(item));
         given(votingResultRepository.searchOpinionCountVotingResultByVote(any())).willReturn(Collections.singletonList(opinionCountDTO));
         given(votingResultRepository.findAllByVote(any())).willReturn(Collections.singletonList(votingResult));
 
         // when
-        VoteResultInfoDTO voteResultInfoDTO = votingResultService.getVoteResult(itemPk, ClientType.ROLE_MANAGER);
+        VoteResultInfoDTO voteResultInfoDTO = votingResultService.getVoteResult(itemPk, manager.getClientPk());
 
         // then
         assertThat(voteResultInfoDTO.getShareholderResult()).isNotEmpty();
