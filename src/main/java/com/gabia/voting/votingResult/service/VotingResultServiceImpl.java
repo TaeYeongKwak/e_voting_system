@@ -51,6 +51,8 @@ public class VotingResultServiceImpl implements VotingResultService{
         Vote vote = votingItem.getVote();
         if (!vote.isActivation()) throw new NotActiveVoteException();
 
+        if (votingResultRepository.existsByVotingRightAndAndVote(client.getVotingRight(), vote));
+
         voteRequestDTO.registryInfo(votingRight, vote);
 
         VoteStrategy voteStrategy = vote.getVoteType().createStrategy(votingResultRepository);

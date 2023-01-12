@@ -1,5 +1,6 @@
 package com.gabia.voting.votingResult.repository;
 
+import com.gabia.voting.client.entity.VotingRight;
 import com.gabia.voting.item.entity.Vote;
 import com.gabia.voting.votingResult.dto.OpinionCountDTO;
 import com.gabia.voting.votingResult.entity.VotingResult;
@@ -22,5 +23,7 @@ public interface VotingResultRepository extends JpaRepository<VotingResult, Long
 
     @Query("select new com.gabia.voting.votingResult.dto.OpinionCountDTO(v.opinion, sum(v.count)) FROM voting_result v where v.vote.votePk = :votePk group by v.opinion")
     public List<OpinionCountDTO> searchOpinionCountVotingResultByVote(Long votePk);
+
+    public boolean existsByVotingRightAndAndVote(VotingRight votingRight, Vote vote);
 
 }

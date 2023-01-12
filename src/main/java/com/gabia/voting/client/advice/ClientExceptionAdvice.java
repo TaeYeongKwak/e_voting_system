@@ -55,4 +55,11 @@ public class ClientExceptionAdvice {
         return APIResponseDTO.fail(exceptionInfo.getCode(), exceptionInfo.getMessage());
     }
 
+    @ExceptionHandler(VotingRightNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    protected APIResponseDTO votingRightNotFoundException(){
+        ClientExceptionInfo exceptionInfo = ClientExceptionInfo.VOTING_RIGHT_NOT_FOUND;
+        return APIResponseDTO.fail(exceptionInfo.getCode(), exceptionInfo.getMessage());
+    }
+
 }
