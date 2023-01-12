@@ -10,7 +10,6 @@ import com.gabia.voting.item.repository.ItemRepository;
 import com.gabia.voting.item.repository.VoteRepository;
 import com.gabia.voting.votingResult.dto.OpinionCountDTO;
 import com.gabia.voting.votingResult.entity.VotingResult;
-import com.gabia.voting.votingResult.repository.VotingResultRepository;
 import com.gabia.voting.votingResult.type.OpinionType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -4,12 +4,15 @@ import com.gabia.voting.client.entity.Client;
 import com.gabia.voting.client.entity.VotingRight;
 import com.gabia.voting.client.repository.ClientRepository;
 import com.gabia.voting.client.repository.VotingRightRepository;
+import com.gabia.voting.client.type.ClientType;
 import com.gabia.voting.item.entity.Item;
 import com.gabia.voting.item.entity.Vote;
 import com.gabia.voting.item.repository.ItemRepository;
 import com.gabia.voting.item.repository.VoteRepository;
 import com.gabia.voting.item.type.VoteType;
+import com.gabia.voting.votingResult.dto.OpinionCountDTO;
 import com.gabia.voting.votingResult.dto.VoteRequestDTO;
+import com.gabia.voting.votingResult.dto.VoteResultInfoDTO;
 import com.gabia.voting.votingResult.entity.VotingResult;
 import com.gabia.voting.votingResult.repository.VotingResultRepository;
 import com.gabia.voting.votingResult.type.OpinionType;
@@ -23,6 +26,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -110,6 +115,26 @@ public class VotingResultServiceImplTest {
 
         // then
         verify(votingResultRepository, times(1)).save(any());
+    }
+
+    @Test
+    public void getVoteResult_test(){
+        // given
+        Long itemPk = item.getItemPk();
+
+        OpinionCountDTO opinionCountDTO = new OpinionCountDTO(votingResult.getOpinion(), votingResult.getCount());
+
+        given(itemRepository.findById(any())).willReturn(Optional.of(item));
+        given(votingResultRepository.searchOpinionCountVotingResultByVote(any())).willReturn(Collections.singletonList(opinionCountDTO));
+        given(votingResultRepository.findAllByVote(any())).willReturn(Collections.singletonList(votingResult));
+
+        // when
+        VoteResultInfoDTO voteResultInfoDTO = votingResultService.getVoteResult(itemPk, ClientType.ROLE_MANAGER);
+
+        // then
+        assertThat(voteResultInfoDTO.getShareholderResult()).isNotEmpty();
+        assertThat(voteResultInfoDTO.getManagerResult()).isNotNull();
+
     }
 
 

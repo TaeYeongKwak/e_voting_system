@@ -1,5 +1,6 @@
 package com.gabia.voting.votingResult.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,11 +12,18 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class VoteResultInfoDTO {
 
     private List<OpinionCountDTO> shareholderResult;
     private List<SimpleVotingResultDTO> managerResult;
 
+    public VoteResultInfoDTO(List<OpinionCountDTO> shareholderResult) {
+        this.shareholderResult = shareholderResult;
+    }
 
+    public void setManagerResult(List<SimpleVotingResultDTO> managerResult){
+        this.managerResult = managerResult;
+    }
 }
 
