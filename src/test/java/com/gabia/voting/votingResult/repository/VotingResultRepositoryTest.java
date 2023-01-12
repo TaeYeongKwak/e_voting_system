@@ -1,4 +1,4 @@
-package com.gabia.voting.votingResult;
+package com.gabia.voting.votingResult.repository;
 
 import com.gabia.voting.client.entity.Client;
 import com.gabia.voting.client.entity.VotingRight;

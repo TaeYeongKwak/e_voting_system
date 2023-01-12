@@ -9,17 +9,17 @@ public enum VoteType {
 
     UNLIMITED{
         @Override
-        protected VoteStrategy createStrategy(VotingResultRepository votingResultRepository) {
+        public VoteStrategy createStrategy(VotingResultRepository votingResultRepository) {
             return new UnlimitedVoteStrategy(votingResultRepository);
         }
     },
     FIRST_SERVED_LIMITED {
         @Override
-        protected VoteStrategy createStrategy(VotingResultRepository votingResultRepository) {
+        public VoteStrategy createStrategy(VotingResultRepository votingResultRepository) {
             return new FirstServedLimitedVoteStrategy(votingResultRepository);
         }
     };
 
-    abstract protected VoteStrategy createStrategy(VotingResultRepository votingResultRepository);
+    abstract public VoteStrategy createStrategy(VotingResultRepository votingResultRepository);
 
 }

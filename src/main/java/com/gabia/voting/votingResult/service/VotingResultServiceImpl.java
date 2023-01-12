@@ -1,13 +1,23 @@
 package com.gabia.voting.votingResult.service;
 
 import com.gabia.voting.client.entity.Client;
+import com.gabia.voting.client.entity.VotingRight;
+import com.gabia.voting.client.exception.ClientNotFoundException;
+import com.gabia.voting.client.exception.VotingRightNotFoundException;
 import com.gabia.voting.client.repository.ClientRepository;
 import com.gabia.voting.client.repository.VotingRightRepository;
+import com.gabia.voting.item.entity.Item;
+import com.gabia.voting.item.entity.Vote;
+import com.gabia.voting.item.exception.ItemNotFoundException;
+import com.gabia.voting.item.exception.NotActiveVoteException;
+import com.gabia.voting.item.exception.VoteNotFoundException;
 import com.gabia.voting.item.repository.ItemRepository;
 import com.gabia.voting.item.repository.VoteRepository;
 import com.gabia.voting.votingResult.dto.VoteRequestDTO;
 import com.gabia.voting.votingResult.dto.VoteResultInfoDTO;
+import com.gabia.voting.votingResult.exception.ExceedLimitedVotingRightCountException;
 import com.gabia.voting.votingResult.repository.VotingResultRepository;
+import com.gabia.voting.votingResult.strategy.VoteStrategy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +36,20 @@ public class VotingResultServiceImpl implements VotingResultService{
     @Transactional
     @Override
     public void useVotingRight(Long itemPk, Long clientPk, VoteRequestDTO voteRequestDTO) {
+        Client client = clientRepository.findById(clientPk).orElseThrow(ClientNotFoundException::new);
+        VotingRight votingRight = votingRightRepository.findByClient(client).orElseThrow(VotingRightNotFoundException::new);
+        if (votingRight.getCount() < voteRequestDTO.getCount()) throw new ExceedLimitedVotingRightCountException();
 
+        Item votingItem = itemRepository.findById(itemPk).orElseThrow(ItemNotFoundException::new);
+        if (!votingItem.hasVote()) throw new VoteNotFoundException();
+
+        Vote vote = votingItem.getVote();
+        if (!vote.isActivation()) throw new NotActiveVoteException();
+
+        voteRequestDTO.registryInfo(votingRight, vote);
+
+        VoteStrategy voteStrategy = vote.getVoteType().createStrategy(votingResultRepository);
+        voteStrategy.vote(voteRequestDTO);
     }
 
     @Override

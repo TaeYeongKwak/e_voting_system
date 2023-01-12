@@ -9,5 +9,5 @@ import lombok.RequiredArgsConstructor;
 public abstract class VoteStrategy {
 
     protected final VotingResultRepository votingResultRepository;
-    abstract VotingResult vote(VoteRequestDTO voteRequestDTO);
+    public abstract VotingResult vote(VoteRequestDTO voteRequestDTO);
 }
