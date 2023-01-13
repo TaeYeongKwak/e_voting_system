@@ -9,7 +9,6 @@ import com.gabia.voting.item.entity.Vote;
 import com.gabia.voting.item.repository.ItemRepository;
 import com.gabia.voting.item.repository.VoteRepository;
 import com.gabia.voting.item.type.VoteType;
-import com.gabia.voting.votingResult.dto.OpinionCountDTO;
 import com.gabia.voting.votingResult.entity.VotingResult;
 import com.gabia.voting.votingResult.type.OpinionType;
 import org.junit.jupiter.api.BeforeEach;
@@ -102,18 +101,4 @@ public class VotingResultRepositoryTest {
         // then
         assertThat(list.size()).isEqualTo(1);
     }
-
-    @Test
-    public void searchOpinionCountVotingResultByVote_test(){
-        // given
-        votingResultRepository.save(votingResult);
-
-        // when
-        List<OpinionCountDTO> list = votingResultRepository.searchOpinionCountVotingResultByVote(vote.getVotePk());
-
-        // then
-        assertThat(list.get(0).getCount()).isEqualTo(Long.parseLong(votingResult.getCount().toString()));
-    }
-
-
 }

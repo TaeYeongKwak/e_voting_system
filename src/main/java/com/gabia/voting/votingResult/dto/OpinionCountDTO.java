@@ -1,6 +1,6 @@
 package com.gabia.voting.votingResult.dto;
 
-import com.gabia.voting.votingResult.type.OpinionType;
+import com.gabia.voting.item.entity.Vote;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +10,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OpinionCountDTO {
 
-    private OpinionType opinion;
-    private long count;
+    private Integer agreementCount;
+    private Integer oppositionCount;
+    private Integer giveUpCount;
+
+    public static OpinionCountDTO of(Vote vote){
+        return new OpinionCountDTO(
+                vote.getAgreementCount(),
+                vote.getOppositionCount(),
+                vote.getGiveUpCount()
+        );
+    }
 
 }

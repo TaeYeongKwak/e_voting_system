@@ -15,10 +15,10 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class VoteResultInfoDTO {
 
-    private List<OpinionCountDTO> shareholderResult;
+    private OpinionCountDTO shareholderResult;
     private List<SimpleVotingResultDTO> managerResult;
 
-    public VoteResultInfoDTO(List<OpinionCountDTO> shareholderResult) {
+    public VoteResultInfoDTO(OpinionCountDTO shareholderResult) {
         this.shareholderResult = shareholderResult;
     }
 

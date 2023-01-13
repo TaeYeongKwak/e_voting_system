@@ -22,13 +22,17 @@ import com.gabia.voting.votingResult.exception.ExceedLimitedVotingRightCountExce
 import com.gabia.voting.votingResult.repository.VotingResultRepository;
 import com.gabia.voting.votingResult.strategy.VoteStrategy;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class VotingResultServiceImpl implements VotingResultService{
@@ -39,9 +43,10 @@ public class VotingResultServiceImpl implements VotingResultService{
     private final ClientRepository clientRepository;
     private final VotingRightRepository votingRightRepository;
 
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Retryable(value = OptimisticLockingFailureException.class, maxAttempts = 5, backoff = @Backoff(delay = 2000))
+    @Transactional
     @Override
-    public synchronized void useVotingRight(Long itemPk, Long clientPk, VoteRequestDTO voteRequestDTO) {
+    public void useVotingRight(Long itemPk, Long clientPk, VoteRequestDTO voteRequestDTO) {
         Client client = clientRepository.findById(clientPk).orElseThrow(ClientNotFoundException::new);
         VotingRight votingRight = votingRightRepository.findByClient(client).orElseThrow(VotingRightNotFoundException::new);
         if (votingRight.getCount() < voteRequestDTO.getCount()) throw new ExceedLimitedVotingRightCountException();
@@ -52,7 +57,7 @@ public class VotingResultServiceImpl implements VotingResultService{
         Vote vote = votingItem.getVote();
         if (!vote.isActivation()) throw new NotActiveVoteException();
 
-        if (votingResultRepository.existsByVotingRightAndAndVote(client.getVotingRight(), vote));
+        if (votingResultRepository.existsByVotingRightAndVote(client.getVotingRight(), vote));
 
         voteRequestDTO.registryInfo(votingRight, vote);
 
@@ -65,7 +70,7 @@ public class VotingResultServiceImpl implements VotingResultService{
         Item item = itemRepository.findById(itemPk).orElseThrow(ItemNotFoundException::new);
         if (!item.hasVote()) throw new VoteNotFoundException();
 
-        List<OpinionCountDTO> shareholderResult = votingResultRepository.searchOpinionCountVotingResultByVote(item.getVote().getVotePk());
+        OpinionCountDTO shareholderResult = OpinionCountDTO.of(item.getVote());
         VoteResultInfoDTO voteResultInfoDTO = new VoteResultInfoDTO(shareholderResult);
 
         Client client = clientRepository.findById(clientPk).orElseThrow(ClientNotFoundException::new);

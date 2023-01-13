@@ -1,15 +1,12 @@
 package com.gabia.voting.votingResult.strategy;
 
+import com.gabia.voting.item.entity.Vote;
 import com.gabia.voting.votingResult.dto.VoteRequestDTO;
 import com.gabia.voting.votingResult.entity.VotingResult;
 import com.gabia.voting.votingResult.exception.ExceedLimitedVotingRightCountException;
 import com.gabia.voting.votingResult.repository.VotingResultRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-
-@Component
 @Slf4j
 public class FirstServedLimitedVoteStrategy extends VoteStrategy{
 
@@ -19,17 +16,17 @@ public class FirstServedLimitedVoteStrategy extends VoteStrategy{
         super(votingResultRepository);
     }
 
-    @Transactional
     @Override
-    public VotingResult vote(VoteRequestDTO voteRequestDTO) {
-        int sumCount = votingResultRepository.findAllByVote(voteRequestDTO.getVote()).stream().mapToInt(vr -> vr.getCount()).sum();
-        log.info(sumCount + " --------------------------------------------------------------------------");
+    public void vote(VoteRequestDTO voteRequestDTO) {
+        Vote vote = votingResultRepository.findByVotePkForUpdate(voteRequestDTO.getVote().getVotePk());
+        int sumCount = vote.getAgreementCount() + vote.getOppositionCount() + vote.getGiveUpCount();
         if (sumCount >= LIMITED_COUNT)
             throw new ExceedLimitedVotingRightCountException();
 
         int possibleCount = LIMITED_COUNT - sumCount;
         voteRequestDTO.setCount(voteRequestDTO.getCount() > possibleCount? possibleCount : voteRequestDTO.getCount());
         VotingResult saveVotingResult = voteRequestDTO.toEntity();
-        return votingResultRepository.save(saveVotingResult);
+        saveVotingResult = votingResultRepository.save(saveVotingResult);
+        vote.updateVotingCount(saveVotingResult.getOpinion(), saveVotingResult.getCount());
     }
 }

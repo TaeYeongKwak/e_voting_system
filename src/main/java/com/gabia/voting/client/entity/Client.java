@@ -37,7 +37,7 @@ public class Client extends BaseTimeEntity {
 
     @ManyToMany
     @JoinTable(
-            name = "user_role",
+            name = "client_role",
             joinColumns = {@JoinColumn(name = "client_pk", referencedColumnName = "client_pk")},
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
     private Set<Role> clientRole;

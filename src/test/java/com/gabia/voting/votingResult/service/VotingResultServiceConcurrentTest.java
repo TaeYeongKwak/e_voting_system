@@ -11,6 +11,7 @@ import com.gabia.voting.item.repository.VoteRepository;
 import com.gabia.voting.item.type.VoteType;
 import com.gabia.voting.votingResult.dto.VoteRequestDTO;
 import com.gabia.voting.votingResult.entity.VotingResult;
+import com.gabia.voting.votingResult.exception.ExceedLimitedVotingRightCountException;
 import com.gabia.voting.votingResult.repository.VotingResultRepository;
 import com.gabia.voting.votingResult.type.OpinionType;
 import org.junit.jupiter.api.BeforeEach;
@@ -68,7 +69,7 @@ public class VotingResultServiceConcurrentTest {
                     .build();
             clientList.add(client);
 
-            VotingRight votingRight = new VotingRight(client, i);
+            VotingRight votingRight = new VotingRight(client, 10);
             votingRightList.add(votingRight);
         }
 
@@ -95,27 +96,31 @@ public class VotingResultServiceConcurrentTest {
                 .voteType(VoteType.FIRST_SERVED_LIMITED)
                 .build();
 
-        vote = voteRepository.saveAndFlush(vote);
+        vote = voteRepository.save(vote);
 
         List<VoteRequestDTO> dtoList = new ArrayList<>();
         for(int i = 1; i <= USER_NUM; i++){
             VotingRight votingRight = votingRightList.get(i - 1);
             VoteRequestDTO voteRequestDTO = VoteRequestDTO.builder()
-                    .count(votingRight.getCount())
+                    .count(3)
                     .opinion(i % 2 == 0? OpinionType.AGREEMENT : OpinionType.OPPOSITION)
                     .build();
             dtoList.add(voteRequestDTO);
         }
 
         // when
-        ExecutorService executor = Executors.newFixedThreadPool(USER_NUM);
+        ExecutorService executor = Executors.newFixedThreadPool(USER_NUM * 5);
         CountDownLatch countDownLatch = new CountDownLatch(USER_NUM);
 
         for(int i = 1; i <= USER_NUM; i++){
             Client client = clientList.get(i - 1);
             VoteRequestDTO voteRequestDTO = dtoList.get(i - 1);
-            executor.execute(() -> {
-                votingResultService.useVotingRight(item.getItemPk(), client.getClientPk(), voteRequestDTO);
+            executor.submit(() -> {
+                try{
+                    votingResultService.useVotingRight(item.getItemPk(), client.getClientPk(), voteRequestDTO);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 countDownLatch.countDown();
             });
         }
