@@ -18,6 +18,7 @@ import com.gabia.voting.votingResult.dto.OpinionCountDTO;
 import com.gabia.voting.votingResult.dto.SimpleVotingResultDTO;
 import com.gabia.voting.votingResult.dto.VoteRequestDTO;
 import com.gabia.voting.votingResult.dto.VoteResultInfoDTO;
+import com.gabia.voting.votingResult.entity.VotingResult;
 import com.gabia.voting.votingResult.exception.ExceedLimitedVotingRightCountException;
 import com.gabia.voting.votingResult.repository.VotingResultRepository;
 import com.gabia.voting.votingResult.strategy.VoteStrategy;
@@ -46,7 +47,7 @@ public class VotingResultServiceImpl implements VotingResultService{
     @Retryable(value = OptimisticLockingFailureException.class, maxAttempts = 5, backoff = @Backoff(delay = 2000))
     @Transactional
     @Override
-    public void useVotingRight(Long itemPk, Long clientPk, VoteRequestDTO voteRequestDTO) {
+    public VotingResult useVotingRight(Long itemPk, Long clientPk, VoteRequestDTO voteRequestDTO) {
         Client client = clientRepository.findById(clientPk).orElseThrow(ClientNotFoundException::new);
         VotingRight votingRight = votingRightRepository.findByClient(client).orElseThrow(VotingRightNotFoundException::new);
         if (votingRight.getCount() < voteRequestDTO.getCount()) throw new ExceedLimitedVotingRightCountException();
@@ -62,7 +63,7 @@ public class VotingResultServiceImpl implements VotingResultService{
         voteRequestDTO.registryInfo(votingRight, vote);
 
         VoteStrategy voteStrategy = vote.getVoteType().createStrategy(votingResultRepository);
-        voteStrategy.vote(voteRequestDTO);
+        return voteStrategy.vote(voteRequestDTO);
     }
 
     @Override

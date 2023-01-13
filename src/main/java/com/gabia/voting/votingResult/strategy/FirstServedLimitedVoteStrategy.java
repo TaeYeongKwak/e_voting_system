@@ -17,7 +17,7 @@ public class FirstServedLimitedVoteStrategy extends VoteStrategy{
     }
 
     @Override
-    public void vote(VoteRequestDTO voteRequestDTO) {
+    public VotingResult vote(VoteRequestDTO voteRequestDTO) {
         Vote vote = votingResultRepository.findByVotePkForUpdate(voteRequestDTO.getVote().getVotePk());
         int sumCount = vote.getAgreementCount() + vote.getOppositionCount() + vote.getGiveUpCount();
         if (sumCount >= LIMITED_COUNT)
@@ -28,5 +28,6 @@ public class FirstServedLimitedVoteStrategy extends VoteStrategy{
         VotingResult saveVotingResult = voteRequestDTO.toEntity();
         saveVotingResult = votingResultRepository.save(saveVotingResult);
         vote.updateVotingCount(saveVotingResult.getOpinion(), saveVotingResult.getCount());
+        return saveVotingResult;
     }
 }
