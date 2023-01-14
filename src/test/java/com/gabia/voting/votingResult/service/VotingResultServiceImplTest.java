@@ -72,6 +72,9 @@ public class VotingResultServiceImplTest {
         vote = Vote.builder()
                 .votePk(1L)
                 .item(item)
+                .agreementCount(0)
+                .oppositionCount(0)
+                .giveUpCount(0)
                 .voteType(VoteType.FIRST_SERVED_LIMITED)
                 .startTime(LocalDateTime.now().minusDays(1))
                 .endTime(LocalDateTime.now().plusDays(1))
@@ -107,7 +110,7 @@ public class VotingResultServiceImplTest {
         given(clientRepository.findById(any())).willReturn(Optional.of(client));
         given(votingRightRepository.findByClient(any())).willReturn(Optional.of(votingRight));
         given(itemRepository.findById(any())).willReturn(Optional.of(item));
-        given(votingResultRepository.findAllByVote(any())).willReturn(Collections.emptyList());
+        given(votingResultRepository.findByVotePkForUpdate(any())).willReturn(vote);
         given(votingResultRepository.save(any())).willReturn(votingResult);
 
         // when

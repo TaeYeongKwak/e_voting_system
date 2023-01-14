@@ -1,5 +1,6 @@
 package com.gabia.voting.votingResult.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gabia.voting.client.entity.VotingRight;
 import com.gabia.voting.item.entity.Vote;
 import com.gabia.voting.votingResult.entity.VotingResult;
@@ -13,7 +14,9 @@ import lombok.*;
 @Builder
 public class VoteRequestDTO {
 
+    @JsonIgnore
     private VotingRight votingRight;
+    @JsonIgnore
     private Vote vote;
     private Integer count;
     private OpinionType opinion;

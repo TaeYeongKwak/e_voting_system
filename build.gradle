@@ -20,10 +20,6 @@ repositories {
     mavenCentral()
 }
 
-ext{
-    snippetsDir = file('build/generated-snippets')
-}
-
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -46,6 +42,10 @@ dependencies {
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc:2.0.7.RELEASE'
 }
 
+ext{
+    snippetsDir = file('build/generated-snippets')
+}
+
 test {
     outputs.dir snippetsDir
     useJUnitPlatform()
@@ -59,18 +59,23 @@ asciidoctor {
 
 task copyDocument(type: Copy) {
     dependsOn asciidoctor
+    doFirst {
+        delete file('src/main/resources/static/docs')
+    }
     from file("build/docs/asciidoc")
     into file("src/main/resources/static/docs")
 }
 
-// build 의 의존작업 명시
 build {
     dependsOn copyDocument
 }
 
 bootJar {
     dependsOn asciidoctor
-    from ("${asciidoctor.outputDir}/html5") {
-        into 'static/docs'
+    copy{
+        from asciidoctor.outputDir
+        into "src/main/resources/static/docs"
     }
 }
+
+

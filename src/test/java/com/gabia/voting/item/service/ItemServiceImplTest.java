@@ -141,7 +141,7 @@ public class ItemServiceImplTest {
         // given
         Vote vote = Vote.builder()
                 .votePk(1L)
-                .startTime(LocalDateTime.now())
+                .startTime(LocalDateTime.now().minusDays(1))
                 .endTime(LocalDateTime.now().plusDays(5))
                 .build();
 

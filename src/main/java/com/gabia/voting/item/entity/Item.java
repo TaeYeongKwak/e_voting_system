@@ -31,4 +31,8 @@ public class Item extends BaseTimeEntity {
         return vote != null;
     }
 
+    public void setVote(Vote vote){
+        this.vote = vote;
+    }
+
 }

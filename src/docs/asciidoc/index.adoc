@@ -1,0 +1,131 @@
+= G사 주주총회 전자투표 시스템 API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[CLIENT-API]]
+== Client API (사용자 API)
+
+[[Client-주주-회원가입]]
+=== 주주 회원가입
+operation::client-signup-shareholder[]
+
+[[Client-관리자-회원가입]]
+=== 관리자 회원가입
+operation::client-signup-manager[]
+
+[[Client-사용자-로그인]]
+=== 사용자 로그인
+operation::client-login[]
+
+==== Client API Error List
+|===
+|Http Status|Code|Description
+
+|500
+|-1001
+|해당 아이디는 이미 사용중입니다.
+
+|404
+|-1002
+|해당 사용자가 존재하지 않습니다.
+
+|400
+|-1003
+|비밀번호가 일치하지 않습니다.
+
+|500
+|-1004
+|로그인 정보를 가져오는데 실패하였습니다.
+
+|400
+|-1005
+|헤더 형식이 잘못되어 있습니다.
+
+|404
+|-1006
+|사용자가 아무 권한도 가지고 있지 않습니다.
+
+|404
+|-1007
+|해당 사용자가 의결권을 가지고 있지 않습니다.
+
+|===
+
+[[ITEM-API]]
+== Item API (안건 API)
+
+[[ITEM-안건-등록]]
+=== 안건 등록
+operation::item-registry[]
+
+[[ITEM-안건-목록-조회]]
+=== 안건 목록 조회
+operation::item-show-list[]
+
+[[ITEM-안건-상세-조회]]
+=== 안건 상세 조회
+operation::item-show-detail[]
+
+[[ITEM-안건-삭제]]
+=== 안건 삭제
+operation::item-delete[]
+
+[[ITEM-투표-등록]]
+=== 투표 등록
+operation::item-post-vote[]
+
+[[ITEM-투표-변경]]
+=== 투표 변경
+operation::item-modify-vote[]
+
+==== Item API Error List
+|===
+|Http Status|Code|Description
+
+|404
+|-2001
+|해당 안건이 존재하지 않습니다.
+
+|404
+|-2002
+|해당 안건에 대한 투표가 존재하지 않습니다.
+
+|400
+|-2003
+|잘못된 입력입니다.
+
+|400
+|-2004
+|해당 투표가 활성화되어있지 않습니다.
+
+|===
+
+[[VOTING-RESULT-API]]
+== Voting Result API (투표 결과 API)
+
+[[USE-VOTING-RIGHT-의결권-사용]]
+=== 주주 의결권 사용
+operation::use-voting-right[]
+
+[[VOTING-RESULT-투표-결과-조회]]
+=== 투표 결과 조회
+operation::vote-result-voting[]
+
+==== Item API Error List
+|===
+|Http Status|Code|Description
+
+|400
+|-3001
+|제한된 투표 수를 넘었습니다.
+
+|400
+|-3002
+|이미 투표를 진행하였습니다.
+
+
+|===
