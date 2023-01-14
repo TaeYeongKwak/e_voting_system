@@ -60,6 +60,9 @@ public class ItemAPITest {
     @Autowired
     private ItemRepository itemRepository;
 
+    @Autowired
+    private VoteRepository voteRepository;
+
     @Test
     @DisplayName("안건 등록")
     @WithMockUser(username = "TEST_MANAGER", password = "TEST_PASSWORD", roles = {"USER", "MANAGER"})
@@ -138,12 +141,26 @@ public class ItemAPITest {
         SaveItemDTO saveItemDTO = new SaveItemDTO("TEST_TITLE", "TEST_CONTENT");
         Item itemEntity = itemRepository.save(saveItemDTO.toEntity());
 
+        LocalDateTime now = LocalDateTime.now();
+        SaveVoteDTO saveVoteDTO = new SaveVoteDTO(
+                now.minusDays(1),
+                now.plusDays(1),
+                VoteType.FIRST_SERVED_LIMITED
+        );
+
+        Vote vote = voteRepository.save(saveVoteDTO.toEntity(itemEntity));
+        itemEntity.setVote(vote);
+
         // when
         FieldDescriptor[] item = new FieldDescriptor[]{
                 fieldWithPath("itemPk").type(JsonFieldType.NUMBER).description("안건 번호"),
                 fieldWithPath("itemTitle").type(JsonFieldType.STRING).description("안건 제목"),
                 fieldWithPath("canVoting").type(JsonFieldType.BOOLEAN).description("투표 활성화 유무"),
-                fieldWithPath("createdTime").type(JsonFieldType.STRING).description("안건 생성시간")
+                fieldWithPath("createdTime").type(JsonFieldType.STRING).description("안건 생성시간"),
+                subsectionWithPath("voteInfo").type(JsonFieldType.OBJECT).description("투표 정보"),
+                fieldWithPath("voteInfo.votePk").description("투표 번호"),
+                fieldWithPath("voteInfo.startTime").description("투표 시작 시간"),
+                fieldWithPath("voteInfo.endTime").description("투표 종료 시간")
         };
 
         mvc.perform(RestDocumentationRequestBuilders.get( BASE_URI + "/item/{item-pk}", itemEntity.getItemPk())

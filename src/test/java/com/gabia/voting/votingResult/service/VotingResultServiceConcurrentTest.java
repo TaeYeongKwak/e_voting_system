@@ -12,13 +12,11 @@ import com.gabia.voting.item.repository.VoteRepository;
 import com.gabia.voting.item.type.VoteType;
 import com.gabia.voting.votingResult.dto.VoteRequestDTO;
 import com.gabia.voting.votingResult.entity.VotingResult;
-import com.gabia.voting.votingResult.exception.ExceedLimitedVotingRightCountException;
 import com.gabia.voting.votingResult.repository.VotingResultRepository;
 import com.gabia.voting.votingResult.type.OpinionType;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

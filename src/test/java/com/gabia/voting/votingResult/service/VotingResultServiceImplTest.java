@@ -4,15 +4,12 @@ import com.gabia.voting.client.entity.Client;
 import com.gabia.voting.client.entity.VotingRight;
 import com.gabia.voting.client.repository.ClientRepository;
 import com.gabia.voting.client.repository.VotingRightRepository;
-import com.gabia.voting.client.type.ClientType;
 import com.gabia.voting.item.entity.Item;
 import com.gabia.voting.item.entity.Vote;
 import com.gabia.voting.item.repository.ItemRepository;
 import com.gabia.voting.item.repository.VoteRepository;
 import com.gabia.voting.item.type.VoteType;
-import com.gabia.voting.votingResult.dto.OpinionCountDTO;
 import com.gabia.voting.votingResult.dto.VoteRequestDTO;
-import com.gabia.voting.votingResult.dto.VoteResultInfoDTO;
 import com.gabia.voting.votingResult.entity.VotingResult;
 import com.gabia.voting.votingResult.repository.VotingResultRepository;
 import com.gabia.voting.votingResult.type.OpinionType;
@@ -24,10 +21,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -36,7 +30,6 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class VotingResultServiceImplTest {
-
 
     @InjectMocks
     private VotingResultServiceImpl votingResultService;
