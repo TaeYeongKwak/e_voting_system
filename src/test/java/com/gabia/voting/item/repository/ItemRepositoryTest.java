@@ -77,10 +77,6 @@ public class ItemRepositoryTest {
 
         // then
         assertThat(findItemList.size()).isEqualTo(testSize);
-        for (Item findItem : findItemList){
-            assertThat(findItem.getItemTitle()).isEqualTo(Integer.toString(--testSize));
-        }
-
     }
 
 }

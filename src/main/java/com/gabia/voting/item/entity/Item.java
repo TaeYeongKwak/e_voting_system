@@ -27,4 +27,12 @@ public class Item extends BaseTimeEntity {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.REMOVE)
     private Vote vote;
 
+    public boolean hasVote(){
+        return vote != null;
+    }
+
+    public void setVote(Vote vote){
+        this.vote = vote;
+    }
+
 }

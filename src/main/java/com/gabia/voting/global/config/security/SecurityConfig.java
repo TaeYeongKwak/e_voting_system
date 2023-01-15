@@ -1,18 +1,30 @@
-package com.gabia.voting.global.config;
+package com.gabia.voting.global.config.security;
 
+import com.gabia.voting.global.config.filter.JwtAuthenticationFilter;
+import com.gabia.voting.global.config.jwt.JwtProvider;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private final JwtProvider jwtProvider;
+    private final AuthenticationEntryPoint authenticationEntryPoint;
+    private final AccessDeniedHandler accessDeniedHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
@@ -25,9 +37,21 @@ public class SecurityConfig {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(authenticationEntryPoint)
+                .accessDeniedHandler(accessDeniedHandler)
+            .and()
                 .authorizeRequests((auth) ->
-                        auth.anyRequest().permitAll()
+                        auth
+                                .antMatchers(HttpMethod.POST, "/api/v0/item/**").hasRole("MANAGER")
+                                .antMatchers(HttpMethod.DELETE, "/api/v0/item/**").hasRole("MANAGER")
+                                .antMatchers(HttpMethod.PUT, "/api/v0/item/**").hasRole("MANAGER")
+                                .antMatchers(HttpMethod.POST, "/api/v0/vote/*/client/*").hasRole("SHAREHOLDER")
+                                .antMatchers(HttpMethod.GET, "/api/v0/**").hasRole("USER")
+                                .anyRequest().permitAll()
                 );
+
+        http.addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

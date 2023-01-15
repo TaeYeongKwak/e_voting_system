@@ -12,7 +12,8 @@ public enum ClientExceptionInfo {
     PASSWORD_MIS_MATCH(-1003, "비밀번호가 일치하지 않습니다."),
     LOGIN_INFO_FAIL_DECODING(-1004, "로그인 정보를 가져오는데 실패하였습니다."),
     UNFORMATTED_HEADER(-1005, "헤더 형식이 잘못되어 있습니다."),
-    CLIENT_DOES_NOT_HAVE_ROLE(-1006, "사용자가 아무 권한도 가지고 있지 않습니다.");
+    CLIENT_DOES_NOT_HAVE_ROLE(-1006, "사용자가 아무 권한도 가지고 있지 않습니다."),
+    VOTING_RIGHT_NOT_FOUND(-1007, "해당 사용자가 의결권을 가지고 있지 않습니다.");
 
     private int code;
     private String message;
