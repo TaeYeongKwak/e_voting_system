@@ -1,0 +1,56 @@
+|===
+|Path|Type|Description
+
+|`+success+`
+|`+Boolean+`
+|성공 여부
+
+|`+code+`
+|`+Number+`
+|상태 코드
+
+|`+message+`
+|`+String+`
+|상태 메시지
+
+|`+data+`
+|`+Object+`
+|응답 데이터
+
+|`+data.shareholderResult+`
+|`+Object+`
+|주주 권한 투표 결과
+
+|`+data.shareholderResult.agreementCount+`
+|`+Number+`
+|안건 동의 의결권 수
+
+|`+data.shareholderResult.oppositionCount+`
+|`+Number+`
+|안건 반대 의결권 수
+
+|`+data.shareholderResult.giveUpCount+`
+|`+Number+`
+|안건 기권 의결권 수
+
+|`+data.managerResult+`
+|`+Array+`
+|관리자 권한 투표 결과
+
+|`+data.managerResult.[].clientName+`
+|`+String+`
+|주주 이름
+
+|`+data.managerResult.[].opinionType+`
+|`+String+`
+|주주 의견
+
+|`+data.managerResult.[].count+`
+|`+Number+`
+|사용 의결권 수
+
+|`+data.managerResult.[].createdTime+`
+|`+String+`
+|투표 시간
+
+|===

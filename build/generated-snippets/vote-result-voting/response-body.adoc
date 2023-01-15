@@ -1,0 +1,4 @@
+[source,options="nowrap"]
+----
+{"success":true,"code":0,"message":"성공하였습니다.","data":{"shareholderResult":{"agreementCount":10,"oppositionCount":0,"giveUpCount":0},"managerResult":[{"clientName":"SHAREHOLDER","opinionType":"AGREEMENT","count":10,"createdTime":"2023-01-15T12:24:24.8107387"}]}}
+----

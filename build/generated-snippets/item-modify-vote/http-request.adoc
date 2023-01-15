@@ -1,0 +1,11 @@
+[source,http,options="nowrap"]
+----
+PUT /api/v0/item/3/vote HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer {token}
+Accept: application/json
+Content-Length: 67
+Host: localhost:8080
+
+{"startTime":"2023-01-15T12:24:24","endTime":"2023-01-15T12:24:24"}
+----

@@ -1,0 +1,8 @@
+.+/api/v0/vote/{item-pk}+
+|===
+|Parameter|Description
+
+|`+item-pk+`
+|안건 번호
+
+|===

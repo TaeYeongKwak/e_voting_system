@@ -1,0 +1,11 @@
+[source,http,options="nowrap"]
+----
+POST /api/v0/vote/10/client/6 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Accept: application/json
+Authorization: Bearer {token}
+Content-Length: 34
+Host: localhost:8080
+
+{"count":10,"opinion":"AGREEMENT"}
+----

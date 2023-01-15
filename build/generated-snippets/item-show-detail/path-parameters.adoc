@@ -1,0 +1,8 @@
+.+/api/v0/item/{item-pk}+
+|===
+|Parameter|Description
+
+|`+item-pk+`
+|안건 번호
+
+|===

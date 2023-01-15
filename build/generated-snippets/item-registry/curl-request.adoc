@@ -1,0 +1,8 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/api/v0/item' -i -X POST \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Accept: application/json' \
+    -H 'Authorization: Bearer {token}' \
+    -d '{"itemTitle":"TEST_TITLE","itemContent":"TEST_CONTENT"}'
+----

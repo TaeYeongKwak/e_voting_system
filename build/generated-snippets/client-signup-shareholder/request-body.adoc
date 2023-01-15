@@ -1,0 +1,4 @@
+[source,options="nowrap"]
+----
+{"clientId":"TEST_USERID","password":"TEST_PASSWORD","clientName":"SHAREHOLDER","clientType":"ROLE_SHAREHOLDER","votingRightCount":10}
+----

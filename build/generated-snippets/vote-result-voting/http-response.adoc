@@ -1,0 +1,13 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 275
+
+{"success":true,"code":0,"message":"성공하였습니다.","data":{"shareholderResult":{"agreementCount":10,"oppositionCount":0,"giveUpCount":0},"managerResult":[{"clientName":"SHAREHOLDER","opinionType":"AGREEMENT","count":10,"createdTime":"2023-01-15T12:24:24.8107387"}]}}
+----

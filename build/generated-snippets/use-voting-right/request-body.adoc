@@ -1,0 +1,4 @@
+[source,options="nowrap"]
+----
+{"count":10,"opinion":"AGREEMENT"}
+----

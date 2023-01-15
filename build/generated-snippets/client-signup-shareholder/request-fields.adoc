@@ -1,0 +1,24 @@
+|===
+|Path|Type|Description
+
+|`+clientId+`
+|`+String+`
+|사용자 아이디
+
+|`+password+`
+|`+String+`
+|사용자 비밀번호
+
+|`+clientName+`
+|`+String+`
+|사용자 이름
+
+|`+clientType+`
+|`+String+`
+|사용자 종류
+
+|`+votingRightCount+`
+|`+Number+`
+|주주 의결권 수
+
+|===

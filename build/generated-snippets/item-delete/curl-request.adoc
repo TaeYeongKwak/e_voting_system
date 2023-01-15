@@ -1,0 +1,6 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/api/v0/item/1' -i -X DELETE \
+    -H 'Authorization: Bearer {token}' \
+    -H 'Accept: application/json'
+----

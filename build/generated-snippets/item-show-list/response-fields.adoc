@@ -1,0 +1,36 @@
+|===
+|Path|Type|Description
+
+|`+success+`
+|`+Boolean+`
+|성공 여부
+
+|`+code+`
+|`+Number+`
+|상태 코드
+
+|`+message+`
+|`+String+`
+|상태 메시지
+
+|`+data+`
+|`+Array+`
+|응답 데이터
+
+|`+data.[].itemPk+`
+|`+Number+`
+|안건 번호
+
+|`+data.[].itemTitle+`
+|`+String+`
+|안건 제목
+
+|`+data.[].canVoting+`
+|`+Boolean+`
+|투표 활성화 유무
+
+|`+data.[].createdTime+`
+|`+String+`
+|안건 생성시간
+
+|===

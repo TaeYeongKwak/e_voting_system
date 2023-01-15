@@ -1,0 +1,4 @@
+[source,options="nowrap"]
+----
+{"startTime":"2023-01-14T12:24:24","endTime":"2023-01-16T12:24:24","voteType":"FIRST_SERVED_LIMITED"}
+----

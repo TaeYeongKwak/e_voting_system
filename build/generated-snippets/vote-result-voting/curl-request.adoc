@@ -1,0 +1,6 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/api/v0/vote/9' -i -X GET \
+    -H 'Accept: application/json' \
+    -H 'Authorization: Bearer {token}'
+----

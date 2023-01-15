@@ -1,0 +1,11 @@
+.+/api/v0/vote/{item-pk}/client/{client-pk}+
+|===
+|Parameter|Description
+
+|`+item-pk+`
+|안건 번호
+
+|`+client-pk+`
+|사용자 번호
+
+|===
