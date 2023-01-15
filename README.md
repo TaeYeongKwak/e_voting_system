@@ -50,8 +50,7 @@
 ## API 문서
 
 ---
-API 문서 링크 
-[https://abgudv6403.gitlab.io](https://abgudv6403.gitlab.io/)
+[API 문서 링크](https://abgudv6403.gitlab.io)
 
 ## 주요 기능 흐름도
 
