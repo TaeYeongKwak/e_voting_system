@@ -1,8 +1,0 @@
-[source,bash]
-----
-$ curl 'http://localhost:8080/api/v0/item/2/vote' -i -X POST \
-    -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearer {token}' \
-    -H 'Accept: application/json' \
-    -d '{"startTime":"2023-01-14T12:24:24","endTime":"2023-01-16T12:24:24","voteType":"FIRST_SERVED_LIMITED"}'
-----

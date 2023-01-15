@@ -1,6 +1,0 @@
-[source,bash]
-----
-$ http GET 'http://localhost:8080/api/v0/item' \
-    'Authorization:Bearer {token}' \
-    'Accept:application/json'
-----

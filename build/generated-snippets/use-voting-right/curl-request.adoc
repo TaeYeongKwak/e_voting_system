@@ -1,8 +1,0 @@
-[source,bash]
-----
-$ curl 'http://localhost:8080/api/v0/vote/10/client/6' -i -X POST \
-    -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Accept: application/json' \
-    -H 'Authorization: Bearer {token}' \
-    -d '{"count":10,"opinion":"AGREEMENT"}'
-----

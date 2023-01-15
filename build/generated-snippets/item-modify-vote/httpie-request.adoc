@@ -1,7 +1,0 @@
-[source,bash]
-----
-$ echo '{"startTime":"2023-01-15T12:24:24","endTime":"2023-01-15T12:24:24"}' | http PUT 'http://localhost:8080/api/v0/item/3/vote' \
-    'Content-Type:application/json;charset=UTF-8' \
-    'Authorization:Bearer {token}' \
-    'Accept:application/json'
-----

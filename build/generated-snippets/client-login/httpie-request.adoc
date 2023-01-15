@@ -1,6 +1,0 @@
-[source,bash]
-----
-$ http --auth 'TEST_USERID:TEST_PASSWORD' POST 'http://localhost:8080/api/v0/client/login' \
-    'Content-Type:application/json;charset=UTF-8' \
-    'Accept:application/json'
-----

@@ -1,8 +1,0 @@
-[source,http,options="nowrap"]
-----
-GET /api/v0/vote/9 HTTP/1.1
-Accept: application/json
-Authorization: Bearer {token}
-Host: localhost:8080
-
-----
