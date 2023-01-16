@@ -17,6 +17,7 @@ import com.gabia.voting.votingResult.type.OpinionType;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import java.util.concurrent.Executors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ActiveProfiles({"test"})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest
 public class VotingResultServiceConcurrentTest {
