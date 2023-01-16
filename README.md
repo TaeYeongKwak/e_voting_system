@@ -1,10 +1,7 @@
 # G사 주주총회 전자투표 시스템
 
----
 
 ## 개발 환경
-
----
 
 - Java 11
 - Spring Boot 2.7.7
@@ -12,17 +9,13 @@
 
 ## ERD
 
----
 ![GabiaPrivateProject](/uploads/3087b664e6a48a5a01016610a8f3ddd4/GabiaPrivateProject.png)
 
 ## Use Case Diagram
 
----
 ![유스케이스.drawio](/uploads/b345dcb0cbfceaae1f7968fbd11c8999/유스케이스.drawio.png)
 
 ## API 설명
-
----
 
 - **Client**
 
@@ -48,13 +41,9 @@
 | 2 | /vote/{item-pk} | GET | 투표 결과 조회 |
 
 ## API 문서
-
----
 [API 문서 링크](https://abgudv6403.gitlab.io)
 
 ## 주요 기능 흐름도
-
----
 
 - **사용자 회원가입 기능**
     
@@ -78,9 +67,8 @@
 
 ## 추가 필요 개선 사항
 
----
-
 - 중복 코드 제거
 - 불필요한 Query 사용 제거
+- 다양한 상황에 대한 단위, 통합 테스트 코드 작성
 - 조회시 페이징 처리 구현
 - ETC...
