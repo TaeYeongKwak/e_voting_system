@@ -21,7 +21,7 @@ operation::client-signup-manager[]
 === 사용자 로그인
 operation::client-login[]
 
-==== Client API Error List
+=== Client API Error List
 |===
 |Http Status|Code|Description
 
@@ -82,7 +82,7 @@ operation::item-post-vote[]
 === 투표 변경
 operation::item-modify-vote[]
 
-==== Item API Error List
+=== Item API Error List
 |===
 |Http Status|Code|Description
 
@@ -115,7 +115,8 @@ operation::use-voting-right[]
 === 투표 결과 조회
 operation::vote-result-voting[]
 
-==== Item API Error List
+[[Item]]
+=== Vote-Result API Error List
 |===
 |Http Status|Code|Description
 
