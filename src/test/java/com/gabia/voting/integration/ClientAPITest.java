@@ -91,7 +91,7 @@ public class ClientAPITest {
     }
 
     private ResultActions signupTest(String saveJson, String clientType) throws Exception {
-        return mvc.perform(RestDocumentationRequestBuilders.post( BASE_URI + "/client")
+        return mvc.perform(RestDocumentationRequestBuilders.post( BASE_URI + "/clients")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(saveJson))
@@ -130,7 +130,7 @@ public class ClientAPITest {
         String encodingCredentials = Base64.getEncoder().encodeToString(credentials.getBytes());
 
         // when
-        mvc.perform(RestDocumentationRequestBuilders.post( BASE_URI + "/client/login")
+        mvc.perform(RestDocumentationRequestBuilders.post( BASE_URI + "/clients/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Basic " + encodingCredentials))

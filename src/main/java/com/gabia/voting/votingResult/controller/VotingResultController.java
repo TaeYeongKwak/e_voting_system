@@ -15,7 +15,7 @@ public class VotingResultController {
 
     private final VotingResultService votingResultService;
 
-    @PostMapping(value = "/vote/{item-pk}/client/{client-pk}")
+    @PostMapping(value = "/votes/{item-pk}/clients/{client-pk}")
     public APIResponseDTO voting(@PathVariable("item-pk") Long itemPk,
                                  @PathVariable("client-pk") Long clientPk,
                                  @RequestBody VoteRequestDTO voteRequestDTO){
@@ -23,7 +23,7 @@ public class VotingResultController {
         return APIResponseDTO.success();
     }
 
-    @GetMapping(value = "/vote/{item-pk}")
+    @GetMapping(value = "/votes/{item-pk}")
     public APIResponseDTO showVoteResult(@PathVariable("item-pk") Long itemPk){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return APIResponseDTO.success(votingResultService.getVoteResult(itemPk, Long.parseLong(auth.getName())));

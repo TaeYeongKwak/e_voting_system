@@ -75,7 +75,7 @@ public class ItemAPITest {
         String json = objectMapper.writeValueAsString(saveItemDTO);
 
         // when
-        mvc.perform(RestDocumentationRequestBuilders.post( BASE_URI + "/item")
+        mvc.perform(RestDocumentationRequestBuilders.post( BASE_URI + "/items")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer {token}")
@@ -116,7 +116,7 @@ public class ItemAPITest {
                 fieldWithPath("createdTime").type(JsonFieldType.STRING).description("안건 생성시간")
         };
 
-        mvc.perform(RestDocumentationRequestBuilders.get( BASE_URI + "/item")
+        mvc.perform(RestDocumentationRequestBuilders.get( BASE_URI + "/items")
                         .header("Authorization", "Bearer {token}")
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -165,7 +165,7 @@ public class ItemAPITest {
                 fieldWithPath("voteInfo.endTime").description("투표 종료 시간")
         };
 
-        mvc.perform(RestDocumentationRequestBuilders.get( BASE_URI + "/item/{item-pk}", itemEntity.getItemPk())
+        mvc.perform(RestDocumentationRequestBuilders.get( BASE_URI + "/items/{item-pk}", itemEntity.getItemPk())
                         .header("Authorization", "Bearer {token}")
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -196,7 +196,7 @@ public class ItemAPITest {
         Item itemEntity = itemRepository.save(saveItemDTO.toEntity());
 
         // when
-        mvc.perform(RestDocumentationRequestBuilders.delete( BASE_URI + "/item/{item-pk}", itemEntity.getItemPk())
+        mvc.perform(RestDocumentationRequestBuilders.delete( BASE_URI + "/items/{item-pk}", itemEntity.getItemPk())
                         .header("Authorization", "Bearer {token}")
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -234,7 +234,7 @@ public class ItemAPITest {
         String json = objectMapper.writeValueAsString(saveVoteDTO);
 
         // when
-        mvc.perform(RestDocumentationRequestBuilders.post( BASE_URI + "/item/{item-pk}/vote", itemEntity.getItemPk())
+        mvc.perform(RestDocumentationRequestBuilders.post( BASE_URI + "/items/{item-pk}/votes", itemEntity.getItemPk())
                         .header("Authorization", "Bearer {token}")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -283,7 +283,7 @@ public class ItemAPITest {
         String json = objectMapper.writeValueAsString(modifyVoteDTO);
 
         // when
-        mvc.perform(RestDocumentationRequestBuilders.put( BASE_URI + "/item/{item-pk}/vote", itemEntity.getItemPk())
+        mvc.perform(RestDocumentationRequestBuilders.put( BASE_URI + "/items/{item-pk}/votes", itemEntity.getItemPk())
                         .header("Authorization", "Bearer {token}")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
