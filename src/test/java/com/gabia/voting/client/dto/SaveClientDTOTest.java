@@ -14,7 +14,7 @@ public class SaveClientDTOTest {
         // given
         String defaultRoleName = "ROLE_USER";
         ClientType typeRoleName = ClientType.ROLE_SHAREHOLDER;
-        String[] roleNames = {defaultRoleName, typeRoleName.toString()};
+        String[] roleNames = {defaultRoleName, typeRoleName.name()};
 
         SaveClientDTO saveClientDTO = SaveClientDTO.builder()
                 .clientId("testId")

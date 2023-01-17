@@ -44,11 +44,11 @@ public class SecurityConfig {
             .and()
                 .authorizeRequests((auth) ->
                         auth
-                                .antMatchers(HttpMethod.POST, "/api/v0/item/**").hasRole(ClientType.ROLE_MANAGER.getRole())
-                                .antMatchers(HttpMethod.DELETE, "/api/v0/item/**").hasRole(ClientType.ROLE_MANAGER.getRole())
-                                .antMatchers(HttpMethod.PUT, "/api/v0/item/**").hasRole(ClientType.ROLE_MANAGER.getRole())
-                                .antMatchers(HttpMethod.POST, "/api/v0/vote/*/client/*").hasRole(ClientType.ROLE_SHAREHOLDER.getRole())
-                                .antMatchers(HttpMethod.GET, "/api/v0/**").hasRole(ClientType.ROLE_USER.getRole())
+                                .antMatchers(HttpMethod.POST, "/api/v0/item/**").hasRole(ClientType.ROLE_MANAGER.toString())
+                                .antMatchers(HttpMethod.DELETE, "/api/v0/item/**").hasRole(ClientType.ROLE_MANAGER.toString())
+                                .antMatchers(HttpMethod.PUT, "/api/v0/item/**").hasRole(ClientType.ROLE_MANAGER.toString())
+                                .antMatchers(HttpMethod.POST, "/api/v0/vote/*/client/*").hasRole(ClientType.ROLE_SHAREHOLDER.toString())
+                                .antMatchers(HttpMethod.GET, "/api/v0/**").hasRole(ClientType.ROLE_USER.toString())
                                 .anyRequest().permitAll()
                 );
 

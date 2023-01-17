@@ -6,9 +6,12 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ClientType {
-    ROLE_USER("USER"),
-    ROLE_SHAREHOLDER("SHAREHOLDER"),
-    ROLE_MANAGER("MANAGER");
+    ROLE_USER,
+    ROLE_SHAREHOLDER,
+    ROLE_MANAGER;
 
-    String role;
+    @Override
+    public String toString(){
+        return this.name().substring(5);
+    }
 }

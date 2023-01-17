@@ -30,7 +30,7 @@ public class JwtProviderTest {
 
         Set<Role> roles = new HashSet<>();
         roles.add(new Role("ROLE_USER"));
-        roles.add(new Role(ClientType.ROLE_SHAREHOLDER.toString()));
+        roles.add(new Role(ClientType.ROLE_SHAREHOLDER.name()));
 
         client = Client.builder()
                 .clientPk(1L)
@@ -113,7 +113,7 @@ public class JwtProviderTest {
         Set<Role> roles = client.getClientRole();
         String token = jwtProvider.createToken(clientPk, roles);
 
-        String[] authorityNames = new String[]{"ROLE_USER", ClientType.ROLE_SHAREHOLDER.toString()};
+        String[] authorityNames = new String[]{"ROLE_USER", ClientType.ROLE_SHAREHOLDER.name()};
 
         // when
         Authentication authentication = jwtProvider.getAuthentication(token);
