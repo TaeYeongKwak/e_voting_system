@@ -131,7 +131,7 @@ public class VotingResultAPITest {
         String json = objectMapper.writeValueAsString(voteRequestDTO);
 
         // when
-        mvc.perform(RestDocumentationRequestBuilders.post( BASE_URI + "/vote/{item-pk}/client/{client-pk}",
+        mvc.perform(RestDocumentationRequestBuilders.post( BASE_URI + "/votes/{item-pk}/clients/{client-pk}",
                                 item.getItemPk(),
                                 client.getClientPk())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -188,7 +188,7 @@ public class VotingResultAPITest {
         votingResultService.useVotingRight(item.getItemPk(), client.getClientPk(), voteRequestDTO);
 
         // when
-        mvc.perform(RestDocumentationRequestBuilders.get( BASE_URI + "/vote/{item-pk}",
+        mvc.perform(RestDocumentationRequestBuilders.get( BASE_URI + "/votes/{item-pk}",
                                 item.getItemPk())
                         .accept(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer {token}"))

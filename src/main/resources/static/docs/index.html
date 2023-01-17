@@ -451,6 +451,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Client-주주-회원가입">주주 회원가입</a></li>
 <li><a href="#Client-관리자-회원가입">관리자 회원가입</a></li>
 <li><a href="#Client-사용자-로그인">사용자 로그인</a></li>
+<li><a href="#_client_api_error_list">Client API Error List</a></li>
 </ul>
 </li>
 <li><a href="#ITEM-API">Item API (안건 API)</a>
@@ -461,12 +462,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#ITEM-안건-삭제">안건 삭제</a></li>
 <li><a href="#ITEM-투표-등록">투표 등록</a></li>
 <li><a href="#ITEM-투표-변경">투표 변경</a></li>
+<li><a href="#_item_api_error_list">Item API Error List</a></li>
 </ul>
 </li>
 <li><a href="#VOTING-RESULT-API">Voting Result API (투표 결과 API)</a>
 <ul class="sectlevel2">
 <li><a href="#USE-VOTING-RIGHT-의결권-사용">주주 의결권 사용</a></li>
 <li><a href="#VOTING-RESULT-투표-결과-조회">투표 결과 조회</a></li>
+<li><a href="#Item">Vote-Result API Error List</a></li>
 </ul>
 </li>
 </ul>
@@ -811,7 +814,7 @@ Pragma: no-cache
 Expires: 0
 Content-Length: 246
 
-{"success":true,"code":0,"message":"성공하였습니다.","data":"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwicm9sZXMiOiJST0xFX1NIQVJFSE9MREVSIFJPTEVfVVNFUiAiLCJpYXQiOjE2NzM4MzAzNTUsImV4cCI6MTY3MzgzMzk1NX0.lLZAoLrPb4NsQ2ZFFKvzIqh9F5yIPjdV6w9Sq7MreoI"}</code></pre>
+{"success":true,"code":0,"message":"성공하였습니다.","data":"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwicm9sZXMiOiJST0xFX1NIQVJFSE9MREVSIFJPTEVfVVNFUiAiLCJpYXQiOjE2NzM4NDg3MTMsImV4cCI6MTY3Mzg1MjMxM30.WIqPtCu_W_cJHbrVCXhjx5Ysep4ubhLGhJmJmkN80gk"}</code></pre>
 </div>
 </div>
 </div>
@@ -858,7 +861,7 @@ Content-Length: 246
 <h4 id="Client-사용자-로그인_response_body"><a class="link" href="#Client-사용자-로그인_response_body">Response body</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{"success":true,"code":0,"message":"성공하였습니다.","data":"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwicm9sZXMiOiJST0xFX1NIQVJFSE9MREVSIFJPTEVfVVNFUiAiLCJpYXQiOjE2NzM4MzAzNTUsImV4cCI6MTY3MzgzMzk1NX0.lLZAoLrPb4NsQ2ZFFKvzIqh9F5yIPjdV6w9Sq7MreoI"}</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{"success":true,"code":0,"message":"성공하였습니다.","data":"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwicm9sZXMiOiJST0xFX1NIQVJFSE9MREVSIFJPTEVfVVNFUiAiLCJpYXQiOjE2NzM4NDg3MTMsImV4cCI6MTY3Mzg1MjMxM30.WIqPtCu_W_cJHbrVCXhjx5Ysep4ubhLGhJmJmkN80gk"}</code></pre>
 </div>
 </div>
 </div>
@@ -901,8 +904,9 @@ Content-Length: 246
 </tbody>
 </table>
 </div>
-<div class="sect3">
-<h4 id="_client_api_error_list"><a class="link" href="#_client_api_error_list">Client API Error List</a></h4>
+</div>
+<div class="sect2">
+<h3 id="_client_api_error_list"><a class="link" href="#_client_api_error_list">Client API Error List</a></h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -954,7 +958,6 @@ Content-Length: 246
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 </div>
@@ -1153,9 +1156,9 @@ X-XSS-Protection: 1; mode=block
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 374
+Content-Length: 375
 
-{"success":true,"code":0,"message":"성공하였습니다.","data":[{"itemPk":8,"itemTitle":"TEST_TITLE_3","canVoting":false,"createdTime":"2023-01-16T09:52:36.314559"},{"itemPk":7,"itemTitle":"TEST_TITLE_2","canVoting":false,"createdTime":"2023-01-16T09:52:36.3135096"},{"itemPk":6,"itemTitle":"TEST_TITLE_1","canVoting":false,"createdTime":"2023-01-16T09:52:36.3125135"}]}</code></pre>
+{"success":true,"code":0,"message":"성공하였습니다.","data":[{"itemPk":8,"itemTitle":"TEST_TITLE_3","canVoting":false,"createdTime":"2023-01-16T14:58:33.8184941"},{"itemPk":7,"itemTitle":"TEST_TITLE_2","canVoting":false,"createdTime":"2023-01-16T14:58:33.8174964"},{"itemPk":6,"itemTitle":"TEST_TITLE_1","canVoting":false,"createdTime":"2023-01-16T14:58:33.8164995"}]}</code></pre>
 </div>
 </div>
 </div>
@@ -1202,7 +1205,7 @@ Content-Length: 374
 <h4 id="ITEM-안건-목록-조회_response_body"><a class="link" href="#ITEM-안건-목록-조회_response_body">Response body</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{"success":true,"code":0,"message":"성공하였습니다.","data":[{"itemPk":8,"itemTitle":"TEST_TITLE_3","canVoting":false,"createdTime":"2023-01-16T09:52:36.314559"},{"itemPk":7,"itemTitle":"TEST_TITLE_2","canVoting":false,"createdTime":"2023-01-16T09:52:36.3135096"},{"itemPk":6,"itemTitle":"TEST_TITLE_1","canVoting":false,"createdTime":"2023-01-16T09:52:36.3125135"}]}</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{"success":true,"code":0,"message":"성공하였습니다.","data":[{"itemPk":8,"itemTitle":"TEST_TITLE_3","canVoting":false,"createdTime":"2023-01-16T14:58:33.8184941"},{"itemPk":7,"itemTitle":"TEST_TITLE_2","canVoting":false,"createdTime":"2023-01-16T14:58:33.8174964"},{"itemPk":6,"itemTitle":"TEST_TITLE_1","canVoting":false,"createdTime":"2023-01-16T14:58:33.8164995"}]}</code></pre>
 </div>
 </div>
 </div>
@@ -1300,9 +1303,9 @@ X-XSS-Protection: 1; mode=block
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 301
+Content-Length: 299
 
-{"success":true,"code":0,"message":"성공하였습니다.","data":{"itemPk":5,"itemTitle":"TEST_TITLE","itemContent":"TEST_CONTENT","createdTime":"2023-01-16T09:52:36.2606512","canVoting":true,"voteInfo":{"votePk":3,"startTime":"2023-01-15T09:52:36.2616486","endTime":"2023-01-17T09:52:36.2616486"}}}</code></pre>
+{"success":true,"code":0,"message":"성공하였습니다.","data":{"itemPk":5,"itemTitle":"TEST_TITLE","itemContent":"TEST_CONTENT","createdTime":"2023-01-16T14:58:33.7708635","canVoting":true,"voteInfo":{"votePk":3,"startTime":"2023-01-15T14:58:33.771621","endTime":"2023-01-17T14:58:33.771621"}}}</code></pre>
 </div>
 </div>
 </div>
@@ -1371,7 +1374,7 @@ Content-Length: 301
 <h4 id="ITEM-안건-상세-조회_response_body"><a class="link" href="#ITEM-안건-상세-조회_response_body">Response body</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{"success":true,"code":0,"message":"성공하였습니다.","data":{"itemPk":5,"itemTitle":"TEST_TITLE","itemContent":"TEST_CONTENT","createdTime":"2023-01-16T09:52:36.2606512","canVoting":true,"voteInfo":{"votePk":3,"startTime":"2023-01-15T09:52:36.2616486","endTime":"2023-01-17T09:52:36.2616486"}}}</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{"success":true,"code":0,"message":"성공하였습니다.","data":{"itemPk":5,"itemTitle":"TEST_TITLE","itemContent":"TEST_CONTENT","createdTime":"2023-01-16T14:58:33.7708635","canVoting":true,"voteInfo":{"votePk":3,"startTime":"2023-01-15T14:58:33.771621","endTime":"2023-01-17T14:58:33.771621"}}}</code></pre>
 </div>
 </div>
 </div>
@@ -1609,7 +1612,7 @@ Content-Length: 60
     -H 'Content-Type: application/json;charset=UTF-8' \
     -H 'Authorization: Bearer {token}' \
     -H 'Accept: application/json' \
-    -d '{"startTime":"2023-01-15T09:52:36","endTime":"2023-01-17T09:52:36","voteType":"FIRST_SERVED_LIMITED"}'</code></pre>
+    -d '{"startTime":"2023-01-15T14:58:33","endTime":"2023-01-17T14:58:33","voteType":"FIRST_SERVED_LIMITED"}'</code></pre>
 </div>
 </div>
 </div>
@@ -1624,7 +1627,7 @@ Accept: application/json
 Content-Length: 101
 Host: localhost:8080
 
-{"startTime":"2023-01-15T09:52:36","endTime":"2023-01-17T09:52:36","voteType":"FIRST_SERVED_LIMITED"}</code></pre>
+{"startTime":"2023-01-15T14:58:33","endTime":"2023-01-17T14:58:33","voteType":"FIRST_SERVED_LIMITED"}</code></pre>
 </div>
 </div>
 </div>
@@ -1649,7 +1652,7 @@ Content-Length: 60
 <h4 id="ITEM-투표-등록_httpie_request"><a class="link" href="#ITEM-투표-등록_httpie_request">HTTPie request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ echo '{"startTime":"2023-01-15T09:52:36","endTime":"2023-01-17T09:52:36","voteType":"FIRST_SERVED_LIMITED"}' | http POST 'http://localhost:8080/api/v0/item/2/vote' \
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ echo '{"startTime":"2023-01-15T14:58:33","endTime":"2023-01-17T14:58:33","voteType":"FIRST_SERVED_LIMITED"}' | http POST 'http://localhost:8080/api/v0/item/2/vote' \
     'Content-Type:application/json;charset=UTF-8' \
     'Authorization:Bearer {token}' \
     'Accept:application/json'</code></pre>
@@ -1682,7 +1685,7 @@ Content-Length: 60
 <h4 id="ITEM-투표-등록_request_body"><a class="link" href="#ITEM-투표-등록_request_body">Request body</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{"startTime":"2023-01-15T09:52:36","endTime":"2023-01-17T09:52:36","voteType":"FIRST_SERVED_LIMITED"}</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{"startTime":"2023-01-15T14:58:33","endTime":"2023-01-17T14:58:33","voteType":"FIRST_SERVED_LIMITED"}</code></pre>
 </div>
 </div>
 </div>
@@ -1794,7 +1797,7 @@ Content-Length: 60
     -H 'Content-Type: application/json;charset=UTF-8' \
     -H 'Authorization: Bearer {token}' \
     -H 'Accept: application/json' \
-    -d '{"startTime":"2023-01-16T09:52:36","endTime":"2023-01-16T09:52:36"}'</code></pre>
+    -d '{"startTime":"2023-01-16T14:58:33","endTime":"2023-01-16T14:58:33"}'</code></pre>
 </div>
 </div>
 </div>
@@ -1809,7 +1812,7 @@ Accept: application/json
 Content-Length: 67
 Host: localhost:8080
 
-{"startTime":"2023-01-16T09:52:36","endTime":"2023-01-16T09:52:36"}</code></pre>
+{"startTime":"2023-01-16T14:58:33","endTime":"2023-01-16T14:58:33"}</code></pre>
 </div>
 </div>
 </div>
@@ -1834,7 +1837,7 @@ Content-Length: 60
 <h4 id="ITEM-투표-변경_httpie_request"><a class="link" href="#ITEM-투표-변경_httpie_request">HTTPie request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ echo '{"startTime":"2023-01-16T09:52:36","endTime":"2023-01-16T09:52:36"}' | http PUT 'http://localhost:8080/api/v0/item/3/vote' \
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ echo '{"startTime":"2023-01-16T14:58:33","endTime":"2023-01-16T14:58:33"}' | http PUT 'http://localhost:8080/api/v0/item/3/vote' \
     'Content-Type:application/json;charset=UTF-8' \
     'Authorization:Bearer {token}' \
     'Accept:application/json'</code></pre>
@@ -1867,7 +1870,7 @@ Content-Length: 60
 <h4 id="ITEM-투표-변경_request_body"><a class="link" href="#ITEM-투표-변경_request_body">Request body</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{"startTime":"2023-01-16T09:52:36","endTime":"2023-01-16T09:52:36"}</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{"startTime":"2023-01-16T14:58:33","endTime":"2023-01-16T14:58:33"}</code></pre>
 </div>
 </div>
 </div>
@@ -1963,8 +1966,9 @@ Content-Length: 60
 </tbody>
 </table>
 </div>
-<div class="sect3">
-<h4 id="_item_api_error_list"><a class="link" href="#_item_api_error_list">Item API Error List</a></h4>
+</div>
+<div class="sect2">
+<h3 id="_item_api_error_list"><a class="link" href="#_item_api_error_list">Item API Error List</a></h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -2001,7 +2005,6 @@ Content-Length: 60
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 </div>
@@ -2228,7 +2231,7 @@ Pragma: no-cache
 Expires: 0
 Content-Length: 275
 
-{"success":true,"code":0,"message":"성공하였습니다.","data":{"shareholderResult":{"agreementCount":10,"oppositionCount":0,"giveUpCount":0},"managerResult":[{"clientName":"SHAREHOLDER","opinionType":"AGREEMENT","count":10,"createdTime":"2023-01-16T09:52:36.4860612"}]}}</code></pre>
+{"success":true,"code":0,"message":"성공하였습니다.","data":{"shareholderResult":{"agreementCount":10,"oppositionCount":0,"giveUpCount":0},"managerResult":[{"clientName":"SHAREHOLDER","opinionType":"AGREEMENT","count":10,"createdTime":"2023-01-16T14:58:33.9854165"}]}}</code></pre>
 </div>
 </div>
 </div>
@@ -2297,7 +2300,7 @@ Content-Length: 275
 <h4 id="VOTING-RESULT-투표-결과-조회_response_body"><a class="link" href="#VOTING-RESULT-투표-결과-조회_response_body">Response body</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{"success":true,"code":0,"message":"성공하였습니다.","data":{"shareholderResult":{"agreementCount":10,"oppositionCount":0,"giveUpCount":0},"managerResult":[{"clientName":"SHAREHOLDER","opinionType":"AGREEMENT","count":10,"createdTime":"2023-01-16T09:52:36.4860612"}]}}</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{"success":true,"code":0,"message":"성공하였습니다.","data":{"shareholderResult":{"agreementCount":10,"oppositionCount":0,"giveUpCount":0},"managerResult":[{"clientName":"SHAREHOLDER","opinionType":"AGREEMENT","count":10,"createdTime":"2023-01-16T14:58:33.9854165"}]}}</code></pre>
 </div>
 </div>
 </div>
@@ -2385,8 +2388,9 @@ Content-Length: 275
 </tbody>
 </table>
 </div>
-<div class="sect3">
-<h4 id="_item_api_error_list_2"><a class="link" href="#_item_api_error_list_2">Item API Error List</a></h4>
+</div>
+<div class="sect2">
+<h3 id="Item"><a class="link" href="#Item">Vote-Result API Error List</a></h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -2417,11 +2421,10 @@ Content-Length: 275
 </div>
 </div>
 </div>
-</div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-01-16 09:07:05 +0900
+Last updated 2023-01-16 13:11:20 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">

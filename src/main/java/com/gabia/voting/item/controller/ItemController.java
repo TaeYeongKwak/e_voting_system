@@ -12,7 +12,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v0/item")
+@RequestMapping(value = "/api/v0/items")
 public class ItemController {
 
     private final ItemService itemService;
@@ -39,13 +39,13 @@ public class ItemController {
         return APIResponseDTO.success(itemService.getDetailItemInfo(itemPk));
     }
 
-    @PostMapping(value = "/{item-pk}/vote")
+    @PostMapping(value = "/{item-pk}/votes")
     public APIResponseDTO postVote(@PathVariable("item-pk") Long itemPk, @Valid @RequestBody SaveVoteDTO saveVoteDTO){
         itemService.postVote(itemPk, saveVoteDTO);
         return APIResponseDTO.success();
     }
 
-    @PutMapping(value = "/{item-pk}/vote")
+    @PutMapping(value = "/{item-pk}/votes")
     public APIResponseDTO modifyVote(@PathVariable("item-pk") Long itemPk, @Valid @RequestBody ModifyVoteDTO modifyVoteDTO){
         itemService.modifyVote(itemPk, modifyVoteDTO);
         return APIResponseDTO.success();

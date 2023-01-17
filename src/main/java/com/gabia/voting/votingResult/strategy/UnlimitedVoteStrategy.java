@@ -14,9 +14,6 @@ public class UnlimitedVoteStrategy extends VoteStrategy{
     @Override
     public VotingResult vote(VoteRequestDTO voteRequestDTO) {
         Vote vote = votingResultRepository.findByVotePkForUpdate(voteRequestDTO.getVote().getVotePk());
-        VotingResult saveVotingResult = voteRequestDTO.toEntity();
-        saveVotingResult = votingResultRepository.save(saveVotingResult);
-        vote.updateVotingCount(saveVotingResult.getOpinion(), saveVotingResult.getCount());
-        return saveVotingResult;
+        return saveVotingResult(vote, voteRequestDTO);
     }
 }

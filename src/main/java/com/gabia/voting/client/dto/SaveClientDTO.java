@@ -24,7 +24,7 @@ public class SaveClientDTO {
 
     public Client toEntity(){
         Role defaultRole = new Role("ROLE_USER");
-        Role typeRole = new Role(clientType.toString());
+        Role typeRole = new Role(clientType.name());
 
         Set<Role> roles = new HashSet<>();
         roles.add(defaultRole);

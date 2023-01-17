@@ -1,5 +1,6 @@
 package com.gabia.voting.global.config.security;
 
+import com.gabia.voting.client.type.ClientType;
 import com.gabia.voting.global.config.filter.JwtAuthenticationFilter;
 import com.gabia.voting.global.config.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
@@ -43,11 +44,11 @@ public class SecurityConfig {
             .and()
                 .authorizeRequests((auth) ->
                         auth
-                                .antMatchers(HttpMethod.POST, "/api/v0/item/**").hasRole("MANAGER")
-                                .antMatchers(HttpMethod.DELETE, "/api/v0/item/**").hasRole("MANAGER")
-                                .antMatchers(HttpMethod.PUT, "/api/v0/item/**").hasRole("MANAGER")
-                                .antMatchers(HttpMethod.POST, "/api/v0/vote/*/client/*").hasRole("SHAREHOLDER")
-                                .antMatchers(HttpMethod.GET, "/api/v0/**").hasRole("USER")
+                                .antMatchers(HttpMethod.POST, "/api/v0/item/**").hasRole(ClientType.ROLE_MANAGER.toString())
+                                .antMatchers(HttpMethod.DELETE, "/api/v0/item/**").hasRole(ClientType.ROLE_MANAGER.toString())
+                                .antMatchers(HttpMethod.PUT, "/api/v0/item/**").hasRole(ClientType.ROLE_MANAGER.toString())
+                                .antMatchers(HttpMethod.POST, "/api/v0/vote/*/client/*").hasRole(ClientType.ROLE_SHAREHOLDER.toString())
+                                .antMatchers(HttpMethod.GET, "/api/v0/**").hasRole(ClientType.ROLE_USER.toString())
                                 .anyRequest().permitAll()
                 );
 

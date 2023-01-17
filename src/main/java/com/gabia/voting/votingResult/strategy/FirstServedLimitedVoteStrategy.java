@@ -25,9 +25,6 @@ public class FirstServedLimitedVoteStrategy extends VoteStrategy{
 
         int possibleCount = LIMITED_COUNT - sumCount;
         voteRequestDTO.setCount(voteRequestDTO.getCount() > possibleCount? possibleCount : voteRequestDTO.getCount());
-        VotingResult saveVotingResult = voteRequestDTO.toEntity();
-        saveVotingResult = votingResultRepository.save(saveVotingResult);
-        vote.updateVotingCount(saveVotingResult.getOpinion(), saveVotingResult.getCount());
-        return saveVotingResult;
+        return saveVotingResult(vote, voteRequestDTO);
     }
 }

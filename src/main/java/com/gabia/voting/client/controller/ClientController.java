@@ -12,7 +12,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v0/client")
+@RequestMapping(value = "/api/v0/clients")
 public class ClientController {
 
     private final ClientService clientService;
