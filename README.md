@@ -9,11 +9,11 @@
 
 ## ERD
 
-![GabiaPrivateProject](/uploads/3087b664e6a48a5a01016610a8f3ddd4/GabiaPrivateProject.png)
+![image](https://user-images.githubusercontent.com/75138553/228469874-17902e30-a635-4cc9-a0dd-9a3806e1f4be.png)
 
 ## Use Case Diagram
 
-![유스케이스.drawio](/uploads/b345dcb0cbfceaae1f7968fbd11c8999/유스케이스.drawio.png)
+![image](https://user-images.githubusercontent.com/75138553/228469908-caf4d610-ae1b-4127-84a4-aa50340a8b37.png)
 
 ## API 설명
 
@@ -47,22 +47,22 @@
 
 - **사용자 회원가입 기능**
     
-![회원가입.drawio](/uploads/e51a6d2d2669bfc564c014afd0361347/회원가입.drawio.png)
+![image](https://user-images.githubusercontent.com/75138553/228469958-05f41be3-9d3a-462f-8dac-5aefedec405f.png)
     
 
 - **사용자 로그인 기능**
     
-![로그인.drawio](/uploads/37ad3ee4111fe5a0393d99f301334eb2/로그인.drawio.png)
+![image](https://user-images.githubusercontent.com/75138553/228469993-5b181773-f7aa-4ca0-847f-dc85f48b3d27.png)
     
 
 - **인증, 인가 기능**
     
-![인증_인가.drawio](/uploads/2710f44741566590747cf3be88c1538f/인증_인가.drawio.png)
+![image](https://user-images.githubusercontent.com/75138553/228470011-9df4acbb-47be-4c1b-876f-9712f25315e8.png)
     
 
 - **투표 기능**
     
-![투표기능.drawio](/uploads/6dff5a9b7056f0115e2b3f187d584bf1/투표기능.drawio.png)
+![image](https://user-images.githubusercontent.com/75138553/228470027-9ae2045a-8d32-4aeb-a68f-36b0d2143066.png)
     
 
 ## 추가 필요 개선 사항
